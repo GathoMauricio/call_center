@@ -43,11 +43,6 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -71,7 +66,12 @@
                 </div>
             </div>
         </nav>
-
+        @if(Session::has('message'))
+        <p id="p_message" class="bg-{{ Session::get('class') }} font-weight-bold" style="padding:3px;padding-left:10px;color:rgb(15, 15, 15);border-radius:10px;">
+            <span onclick="$('#p_message').hide();" class="icon icon-cross float-right" style="cursor:pointer;padding:5px;"></span>
+            {{ Session::get('message') }}
+        </p>
+        @endif
         <main class="py-4">
             @yield('content')
         </main>

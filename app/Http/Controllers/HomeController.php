@@ -23,6 +23,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        if(\Auth::user()->user_rol_id == 1)
+        return view('home_admin');
+        else
+        return view('home_operator');
     }
 }
