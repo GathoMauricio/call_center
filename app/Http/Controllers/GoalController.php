@@ -28,6 +28,10 @@ class GoalController extends Controller
         {
             return redirect()->back()->with(['class' => 'warning','message' => 'La meta de este mes ya existe.']);
         }else{
+            Goal::create([
+                'objetive' => $request->objetive,
+                'date' => $request->date.'-01'
+            ]);
             return redirect()->back()->with(['class' => 'success','message' => 'La meta para '.$request->date.' se almacenó con éxito.']);
         }
     }
