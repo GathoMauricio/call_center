@@ -26,6 +26,7 @@ class UserController extends Controller
             'name' => $request->name,
             'middle_name' => $request->middle_name,
             'last_name' => $request->last_name,
+            'color' => $request->color,
             'email' => $request->email,
             'password' => bcrypt($request->email)
         ]);
@@ -47,6 +48,7 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->middle_name = $request->middle_name;
         $user->last_name = $request->last_name;
+        $user->color = $request->color;
         $user->user_rol_id = $request->user_rol_id;
         if($user->save())
         {

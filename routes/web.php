@@ -18,7 +18,6 @@ Auth::routes();
 
 Route::get('/home', 'SaleController@index')->name('home');
 Route::get('configuration', function(){ return view('configuration'); })->name('configuration');
-Route::get('monitor', function(){ return view('monitor'); })->name('monitor');
 
 Route::get('goals','GoalController@index')->name('goals');
 Route::get('create_goal','GoalController@create')->name('create_goal');
@@ -40,3 +39,19 @@ Route::post('store_user','UserController@store')->name('store_user');
 Route::get('edit_user/{id}','UserController@edit')->name('edit_user');
 Route::put('update_user/{id}','UserController@update')->name('update_user');
 Route::get('delete_user/{id?}','UserController@destroy')->name('delete_user');
+
+Route::get('monitor', function(){ 
+    $goal = App\Goal::where('date',date('Y-m').'-01')->first();
+    $sales = App\Sale::where('date',$goal->date)->get();
+    $totalSales = 0;
+    foreach($sales as $sale)
+    {
+        $totalSales += floatval($sale->amount);
+    }
+    $currentPercent = ($totalSales * 100) / $goal->objetive;
+    return view('monitor',[
+        'goal' => $goal,
+        'totalSales' => $totalSales,
+        'currentPercent' => $currentPercent
+    ]); 
+})->name('monitor');

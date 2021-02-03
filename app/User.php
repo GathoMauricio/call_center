@@ -24,6 +24,7 @@ class User extends Authenticatable
         'middle_name',
         'last_name',
         'email',
+        'color',
         'api_token',
         'fcm_token',
         'password',

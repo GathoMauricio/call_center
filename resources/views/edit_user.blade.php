@@ -56,7 +56,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="email" class="font-weight-bold">
                                             Rol
@@ -77,7 +77,7 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="email" class="font-weight-bold">
                                             Email
@@ -86,6 +86,19 @@
                                         @if($errors->has('email'))
                                         <small class="font-weight-bold" style="color:red;">
                                             {{ $errors->first('email') }}
+                                        </small>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="color" class="font-weight-bold">
+                                            Color
+                                        </label>
+                                        <input name="color" type="color" value="{{ $user->color }}" class="form-control">
+                                        @if($errors->has('color'))
+                                        <small class="font-weight-bold" style="color:red;">
+                                            {{ $errors->first('color') }}
                                         </small>
                                         @endif
                                     </div>

@@ -18,6 +18,7 @@
                                 <th>A. Paterno</th>
                                 <th>A. Materno</th>
                                 <th>Email</th>
+                                <th>Color</th>
                                 @if(Auth::user()->user_rol_id ==1)
                                 <th></th>
                                 @endif
@@ -31,6 +32,7 @@
                                 <td>{{ $user->middle_name }}</td>
                                 <td>{{ $user->last_name }}</td>
                                 <td>{{ $user->email }}</td>
+                                <td><div style="width:100%;height:20px;background-color:{{ $user->color }}"></div></td>
                                 @if(Auth::user()->user_rol_id ==1)
                                 <td>
                                     <a href="{{ route('edit_user',$user->id) }}">Editar</a>

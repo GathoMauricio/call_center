@@ -1,4 +1,5 @@
 require('./bootstrap');
+
 window.deleteSale = sale_id => {
     if(confirm("Eliminar registro")){
         window.location = $("#txt_delete_sale_route").val()

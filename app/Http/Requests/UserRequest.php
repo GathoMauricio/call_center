@@ -26,6 +26,7 @@ class UserRequest extends FormRequest
         return [
             'name' => 'required',
             'middle_name' => 'required',
+            'color' => 'required',
             'email' => 'required|email|unique:users',
         ];
     }
@@ -35,6 +36,7 @@ class UserRequest extends FormRequest
         return [
             'name.required' => 'Este campo es obligatorio',
             'middle_name.required' => 'Este campo es obligatorio',
+            'color.required' => 'Este campo es obligatorio',
             'email.required' => 'Este campo es obligatorio',
             'email.email' => 'Este no parece ser un email válido',
             'email.unique' => 'Este email ya se encuentra en los registros'
