@@ -71,7 +71,7 @@ var names = [];
 var sales = [];
 var colors = [];
 @php 
-$users = App\User::orderBy('name')->get();
+$users = App\User::where('user_rol_id',2)->orderBy('name')->get();
 @endphp
 @foreach($users as $user)
     names.push('{{ $user->name }} {{ $user->middle_name }}');
