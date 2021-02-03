@@ -17,8 +17,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'SaleController@index')->name('home');
-Route::get('configuration', function(){ view('configuration'); })->name('configuration');
-Route::get('monitor', function(){ view('monitor'); })->name('monitor');
+Route::get('configuration', function(){ return view('configuration'); })->name('configuration');
+Route::get('monitor', function(){ return view('monitor'); })->name('monitor');
 
 Route::get('goals','GoalController@index')->name('goals');
 Route::get('create_goal','GoalController@create')->name('create_goal');

@@ -23,7 +23,7 @@
 
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar fixed-top navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -49,7 +49,7 @@
                         </li>
                         @else
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('monitor') }}">Monitor</a>
+                            <a class="nav-link" href="{{ route('monitor') }}" target="_blank">Monitor</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
@@ -82,7 +82,9 @@
                 </div>
             </div>
         </nav>
+        <br><br>
         @if(Session::has('message'))
+        <br>
         <p id="p_message" class="bg-{{ Session::get('class') }} font-weight-bold"
             style="padding:3px;padding-left:10px;color:rgb(15, 15, 15);border-radius:10px;">
             <span onclick="$('#p_message').hide();" class="icon icon-cross float-right"
