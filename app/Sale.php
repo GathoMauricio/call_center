@@ -26,7 +26,16 @@ class Sale extends Model
             $query->author_id = \Auth::user()->id;
             $query->date = date('Y-m').'-01';
 		});
-	}
+    }
+    public function author()
+    {
+        return $this->belongsTo(
+            'App\User',
+            'author_id',
+            'id'
+        )
+            ->withDefault();
+    }
     public function goal()
     {
         return $this->belongsTo(

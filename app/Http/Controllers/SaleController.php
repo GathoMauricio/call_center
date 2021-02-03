@@ -14,7 +14,7 @@ class SaleController extends Controller
     }
     public function index()
     {
-        if(\Auth::user()->id == 1)
+        if(\Auth::user()->user_rol_id == 1)
         {
             $sales = Sale::orderBy('created_at', 'DESC')->paginate(15);
         }else{

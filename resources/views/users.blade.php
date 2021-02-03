@@ -8,6 +8,7 @@
                 <div class="card-header">
                     <a href="{{ route('create_user') }}" class="float-right">Crear usuario</a>
                     <h3>Usuarios</h3>
+                    <span class="float-right">{{ $users->links() }}</span>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped">
@@ -44,6 +45,9 @@
                             @endforeach
                         </tbody>
                     </table>
+                </div>
+                <div class="card-footer">
+                    <span class="float-right">{{ $users->links() }}</span>
                 </div>
             </div>
         </div>

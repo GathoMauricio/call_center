@@ -32,7 +32,7 @@
                             @foreach($sales as $sale)
                             <tr>
                                 @if(Auth::user()->user_rol_id ==1)
-                                <td>{{ Auth::user()->name }} {{ Auth::user()->middle_name }} {{ Auth::user()->last_name }}</td>
+                                <td>{{ $sale->author['name'] }} {{ $sale->author['middle_name'] }} {{ $sale->author['last_name'] }}</td>
                                 @endif
                                 <td>{{ formatDateFull($sale->created_at) }}</td>
                                 <td>{{ $sale->description }}</td>
