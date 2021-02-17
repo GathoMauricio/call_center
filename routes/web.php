@@ -40,18 +40,8 @@ Route::get('edit_user/{id}','UserController@edit')->name('edit_user');
 Route::put('update_user/{id}','UserController@update')->name('update_user');
 Route::get('delete_user/{id?}','UserController@destroy')->name('delete_user');
 
-Route::get('monitor', function(){ 
-    $goal = App\Goal::where('date',date('Y-m').'-01')->first();
-    $sales = App\Sale::where('date',$goal->date)->get();
-    $totalSales = 0;
-    foreach($sales as $sale)
-    {
-        $totalSales += floatval($sale->amount);
-    }
-    $currentPercent = ($totalSales * 100) / $goal->objetive;
-    return view('monitor',[
-        'goal' => $goal,
-        'totalSales' => $totalSales,
-        'currentPercent' => $currentPercent
-    ]); 
-})->name('monitor');
+Route::get('monitor','MonitorController@index')->name('monitor');
+
+Route::get('scraping','ScrapingController@index')->name('scraping');
+Route::post('migeocasa_result_ajax','ScrapingController@result_ajax')->name('migeocasa_result_ajax');
+Route::get('scraping_excel','ScrapingController@excel')->name('scraping_excel');
