@@ -41,7 +41,7 @@ class ScrapingController extends Controller
         }
         $credentials->save();
         //save crawler on cache
-        if(empty(\Cache::get('crawler')))
+        if(!\Cache::has('crawler'))
         {
             $crawler = $client->request('GET', 'http://proveedoreco.infonavit.org.mx/proveedoresEcoWeb/');
             $form = $crawler->filter("form")->form();
