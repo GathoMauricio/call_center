@@ -8,6 +8,7 @@ use Goutte\Client;
 use App\Exports\ScrapingExport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\ScrapingList;
+use App\ScrapingCredential;
 class ScrapingController extends Controller
 {
     public function __construct()
@@ -16,15 +17,37 @@ class ScrapingController extends Controller
     }
     public function index()
     {
-        return view('scraping');
+        $credentials = ScrapingCredential::first();
+        if(empty($credentials))
+        {
+            $credentials = [[
+                'user' => 'Undefined',
+                'password' => 'Undefined'
+            ]];
+        }
+        return view('scraping',['credentials' => $credentials]);
     }
     public function result_ajax(Request $request, Client $client)
     {
+        
+        $credentials = ScrapingCredential::first();
+        if($credentials->user != $request->user)
+        {
+            $credentials->user = $request->user;
+        }
+        if($credentials->password != $request->password)
+        {
+            $credentials->password = $request->password;
+        }
+        $credentials->save();
+
+        //save crawler on cache
+
         try{
             sleep(10);
             $crawler = $client->request('GET', 'http://proveedoreco.infonavit.org.mx/proveedoresEcoWeb/');
             $form = $crawler->filter("form")->form();
-            $crawler = $client->submit($form, ['usuario' => 'IEMECG07', 'password' => 'Mexico21']);
+            $crawler = $client->submit($form, ['usuario' => $credentials->user, 'password' => $credentials->password]);
             $form = $crawler->filter("form")->form();
             $crawler = $client->submit($form, [
                 'numeroCredito' => $request->account

@@ -14,14 +14,32 @@
                         </label>
                         <textarea name="list" id="txt_list" cols="30" rows="10" class="form-control" required></textarea>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12 content-right">
+                </div>               
+            </div>
+            <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="" style="font-weight:bold">
+                                Usuario
+                            </label>
+                            <input type="text" id="user_scraping" value="{{ $credentials->user }}" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="" style="font-weight:bold">
+                                Password
+                            </label>
+                            <input type="text" id="password_scraping" value="{{ $credentials->password }}" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
                         <br>
-                        <input type="submit" value="Crear documento" id="input_submit" class="btn btn-primary" style="float:right">
+                            <input type="submit" value="Crear documento" id="input_submit" class="btn btn-primary" style="float:right">
+                        </div>
                     </div>
                 </div>
-            </div>
         </div>
     </form>
     <br>
@@ -75,7 +93,9 @@
                                 data:{ 
                                     _token: $("#txt_csrf_token").val(),
                                     account: account,
-                                    timestamp_id: timestamp_id
+                                    timestamp_id: timestamp_id,
+                                    user: $("#user_scraping").val(),
+                                    password: $("#password_scraping").val()
                                 },
                                 success: function(data){
                                     succes ++;
