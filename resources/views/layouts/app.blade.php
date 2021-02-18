@@ -51,6 +51,12 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('monitor') }}" target="_blank">Monitor</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('scraping') }}">Scraping</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('account') }}">Cuentas</a>
+                        </li>
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -65,7 +71,6 @@
                                 @if(Auth::user()->user_rol_id ==1)
                                 <a class="dropdown-item" href="{{ route('users') }}">Usuarios</a>
                                 @endif
-                                <a class="dropdown-item" href="{{ route('scraping') }}">Scraping</a>
                                 <!--<a class="dropdown-item" href="{{ route('configuration') }}">Configuración</a>-->
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

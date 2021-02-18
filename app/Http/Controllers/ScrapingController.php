@@ -9,6 +9,7 @@ use App\Exports\ScrapingExport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\ScrapingList;
 use App\ScrapingCredential;
+use App\ScrapingAccount;
 class ScrapingController extends Controller
 {
     public function __construct()
@@ -51,7 +52,7 @@ class ScrapingController extends Controller
             $crawler = \Cache::get('crawler');
         }
         try{
-            sleep(1);
+            sleep(10);
             $form = $crawler->filter("form")->form();
             $crawler = $client->submit($form, [
                 'numeroCredito' => $request->account
@@ -65,6 +66,15 @@ class ScrapingController extends Controller
                     'message' => $message->text(),
                     'timestamp_id'=>$request->timestamp_id
                 ]);
+                //create record
+                $account = ScrapingAccount::where('account',$request->account)->first();
+                if(empty($account))
+                {
+                    ScrapingAccount::create([
+                        'account' => $request->account,
+                        'name' => "No disponible > ".$message->text()
+                    ]);
+                }
                 return [
                         'account' => $request->account,
                         'name' => "",
@@ -86,6 +96,16 @@ class ScrapingController extends Controller
                     'message' => "",
                     'timestamp_id'=>$request->timestamp_id
                 ]);
+                //create record
+                $account = ScrapingAccount::where('account',$request->account)->first();
+                if(empty($account))
+                {
+                    ScrapingAccount::create([
+                        'account' => $request->account,
+                        'name' => $name
+                    ]);
+                }
+                
                 return [
                     'account' => $request->account,
                     'name' => $name,

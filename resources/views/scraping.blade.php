@@ -22,7 +22,13 @@
                             <label for="" style="font-weight:bold">
                                 Usuario
                             </label>
-                            <input type="text" id="user_scraping" value="{{ $credentials->user }}" class="form-control" required>
+                            <input type="text" id="user_scraping" value="{{ $credentials->user }}" class="form-control" 
+                            @if(Auth::user()->user_rol_id == 1)
+                            required
+                            @else
+                            readonly
+                            @endif
+                            >
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -30,7 +36,13 @@
                             <label for="" style="font-weight:bold">
                                 Password
                             </label>
-                            <input type="text" id="password_scraping" value="{{ $credentials->password }}" class="form-control" required>
+                            <input type="text" id="password_scraping" value="{{ $credentials->password }}" class="form-control" 
+                            @if(Auth::user()->user_rol_id == 1)
+                            required
+                            @else
+                            readonly
+                            @endif
+                            >
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -144,7 +156,6 @@
                             });
                             
                         }
-                    //
                 });
 
             });

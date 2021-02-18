@@ -45,3 +45,7 @@ Route::get('monitor','MonitorController@index')->name('monitor');
 Route::get('scraping','ScrapingController@index')->name('scraping');
 Route::post('migeocasa_result_ajax','ScrapingController@result_ajax')->name('migeocasa_result_ajax');
 Route::get('scraping_excel','ScrapingController@excel')->name('scraping_excel');
+
+Route::get('account','ScrapingAccountController@index')->name('account');
+Route::get('edit_account/{id}','ScrapingAccountController@edit')->name('edit_account');
+Route::put('update_account/{id}','ScrapingAccountController@update')->name('update_account');
