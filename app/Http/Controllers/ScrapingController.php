@@ -40,14 +40,18 @@ class ScrapingController extends Controller
             $credentials->password = $request->password;
         }
         $credentials->save();
-
         //save crawler on cache
-
-        try{
-            sleep(10);
+        if(empty(\Cache::get('crawler')))
+        {
             $crawler = $client->request('GET', 'http://proveedoreco.infonavit.org.mx/proveedoresEcoWeb/');
             $form = $crawler->filter("form")->form();
             $crawler = $client->submit($form, ['usuario' => $credentials->user, 'password' => $credentials->password]);
+            \Cache::put('crawler',$crawler, 10);
+        }else{
+            $crawler = \Cache::get('crawler');
+        }
+        try{
+            sleep(1);
             $form = $crawler->filter("form")->form();
             $crawler = $client->submit($form, [
                 'numeroCredito' => $request->account
