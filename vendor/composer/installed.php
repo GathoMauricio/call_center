@@ -959,6 +959,15 @@
       ),
       'reference' => 'c6c1022351a901512170118436c764e473f6de8c',
     ),
+    'spatie/db-dumper' => 
+    array (
+      'pretty_version' => '2.21.0',
+      'version' => '2.21.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '54150d138dfe5b8043c2a7c6c27a8b41a9e8f418',
+    ),
     'swiftmailer/swiftmailer' => 
     array (
       'pretty_version' => 'v6.2.5',

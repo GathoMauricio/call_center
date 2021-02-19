@@ -11,9 +11,11 @@
 |
 */
 Route::get('test',function(){
-    $csvFileName = "libro1.csv";
-    $csvFile = public_path('csv/' . $csvFileName);
-    return dd(readCSV($csvFile,array('delimiter' => ',')));
+    Spatie\DbDumper\Databases\MySql::create()
+    ->setDbName(env('DB_DATABASE'))
+    ->setUserName(env('DB_USERNAME'))
+    ->setPassword(env('DB_PASSWORD'))
+    ->dumpToFile('dump.sql');
 })->name('test');
 
 Route::get('/', function () {

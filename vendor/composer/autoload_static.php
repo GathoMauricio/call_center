@@ -143,6 +143,7 @@ class ComposerStaticInit5cb00af83c166ba7cd2b59fc43b8d27f
             'Symfony\\Component\\CssSelector\\' => 30,
             'Symfony\\Component\\Console\\' => 26,
             'Symfony\\Component\\BrowserKit\\' => 29,
+            'Spatie\\DbDumper\\' => 16,
         ),
         'R' => 
         array (
@@ -371,6 +372,10 @@ class ComposerStaticInit5cb00af83c166ba7cd2b59fc43b8d27f
         'Symfony\\Component\\BrowserKit\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/browser-kit',
+        ),
+        'Spatie\\DbDumper\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/spatie/db-dumper/src',
         ),
         'Ramsey\\Uuid\\' => 
         array (
@@ -4650,6 +4655,16 @@ class ComposerStaticInit5cb00af83c166ba7cd2b59fc43b8d27f
         'SebastianBergmann\\Type\\UnknownType' => __DIR__ . '/..' . '/sebastian/type/src/UnknownType.php',
         'SebastianBergmann\\Type\\VoidType' => __DIR__ . '/..' . '/sebastian/type/src/VoidType.php',
         'SebastianBergmann\\Version' => __DIR__ . '/..' . '/sebastian/version/src/Version.php',
+        'Spatie\\DbDumper\\Compressors\\Compressor' => __DIR__ . '/..' . '/spatie/db-dumper/src/Compressors/Compressor.php',
+        'Spatie\\DbDumper\\Compressors\\GzipCompressor' => __DIR__ . '/..' . '/spatie/db-dumper/src/Compressors/GzipCompressor.php',
+        'Spatie\\DbDumper\\Databases\\MongoDb' => __DIR__ . '/..' . '/spatie/db-dumper/src/Databases/MongoDb.php',
+        'Spatie\\DbDumper\\Databases\\MySql' => __DIR__ . '/..' . '/spatie/db-dumper/src/Databases/MySql.php',
+        'Spatie\\DbDumper\\Databases\\PostgreSql' => __DIR__ . '/..' . '/spatie/db-dumper/src/Databases/PostgreSql.php',
+        'Spatie\\DbDumper\\Databases\\Sqlite' => __DIR__ . '/..' . '/spatie/db-dumper/src/Databases/Sqlite.php',
+        'Spatie\\DbDumper\\DbDumper' => __DIR__ . '/..' . '/spatie/db-dumper/src/DbDumper.php',
+        'Spatie\\DbDumper\\Exceptions\\CannotSetParameter' => __DIR__ . '/..' . '/spatie/db-dumper/src/Exceptions/CannotSetParameter.php',
+        'Spatie\\DbDumper\\Exceptions\\CannotStartDump' => __DIR__ . '/..' . '/spatie/db-dumper/src/Exceptions/CannotStartDump.php',
+        'Spatie\\DbDumper\\Exceptions\\DumpFailed' => __DIR__ . '/..' . '/spatie/db-dumper/src/Exceptions/DumpFailed.php',
         'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
         'Symfony\\Component\\BrowserKit\\AbstractBrowser' => __DIR__ . '/..' . '/symfony/browser-kit/AbstractBrowser.php',
         'Symfony\\Component\\BrowserKit\\Cookie' => __DIR__ . '/..' . '/symfony/browser-kit/Cookie.php',
