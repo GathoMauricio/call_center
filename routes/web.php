@@ -10,6 +10,12 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('test',function(){
+    $csvFileName = "libro1.csv";
+    $csvFile = public_path('csv/' . $csvFileName);
+    return dd(readCSV($csvFile,array('delimiter' => ',')));
+})->name('test');
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -46,6 +52,13 @@ Route::get('scraping','ScrapingController@index')->name('scraping');
 Route::post('migeocasa_result_ajax','ScrapingController@result_ajax')->name('migeocasa_result_ajax');
 Route::get('scraping_excel','ScrapingController@excel')->name('scraping_excel');
 
-Route::get('account','ScrapingAccountController@index')->name('account');
+
 Route::get('edit_account/{id}','ScrapingAccountController@edit')->name('edit_account');
 Route::put('update_account/{id}','ScrapingAccountController@update')->name('update_account');
+
+Route::get('account','AccountController@index')->name('account');
+Route::get('upload_csv','AccountController@uploadCsv')->name('upload_csv');
+Route::post('store_csv','AccountController@storeCsv')->name('store_csv');
+
+Route::get('index_account_follow','AccountFollowController@indexAjax')->name('index_account_follow');
+Route::post('store_account_follow','AccountFollowController@store')->name('store_account_follow');

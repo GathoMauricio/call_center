@@ -53,3 +53,24 @@ if (!function_exists('formatDateMonth')) {
         date_format(new \DateTime($date), 'Y');
     }
 }
+if (!function_exists('readCSV')) {
+    function readCSV($csvFile, $array)
+    {
+        $file_handle = fopen($csvFile, 'r');
+        while (!feof($file_handle)) {
+            $line_of_text[] = fgetcsv($file_handle, 0, $array['delimiter']);
+        }
+        fclose($file_handle);
+        return $line_of_text;
+        //$csvFileName = "test.csv";
+        //$csvFile = public_path('csv/' . $csvFileName);
+        //readCSV($csvFile,array('delimiter' => ','));
+    }
+}
+if (!function_exists('onlyDate')) {
+    function onlyDate($date)
+    {
+        $d = explode(' ',$date);
+        return $d[0];
+    }
+}

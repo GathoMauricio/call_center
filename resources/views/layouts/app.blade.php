@@ -51,9 +51,11 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('monitor') }}" target="_blank">Monitor</a>
                         </li>
+                        <!--
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('scraping') }}">Scraping</a>
                         </li>
+                        -->
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('account') }}">Cuentas</a>
                         </li>
@@ -70,6 +72,7 @@
                                 <a class="dropdown-item" href="{{ route('sales') }}">Inicio</a>
                                 @if(Auth::user()->user_rol_id ==1)
                                 <a class="dropdown-item" href="{{ route('users') }}">Usuarios</a>
+                                <a class="dropdown-item" href="{{ route('upload_csv') }}">Subir CSV</a>
                                 @endif
                                 <!--<a class="dropdown-item" href="{{ route('configuration') }}">Configuración</a>-->
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
