@@ -48,6 +48,8 @@
                                     <br>
                                     <a href="#">Eliminar</a>
                                     -->
+                                    <br>
+                                    <small style="color: #808B96">Asignado a: {{ $account->user['name'] }} {{ $account->user['middle_name'] }}</small>
                                     @endif
                                 </td>
                             </tr>
