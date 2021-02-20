@@ -11,11 +11,10 @@
 |
 */
 Route::get('test',function(){
-    Spatie\DbDumper\Databases\MySql::create()
-    ->setDbName(env('DB_DATABASE'))
-    ->setUserName(env('DB_USERNAME'))
-    ->setPassword(env('DB_PASSWORD'))
-    ->dumpToFile('dump.sql');
+    //dump_db/dump_2021-02-19.sql
+    //return storage_path('dump_db/dump_2021-02-19.sql');
+    //$disk = \Storage::disk('gcs');
+    //$disk->put('My_Test.txt',"This is my first test");
 })->name('test');
 
 Route::get('/', function () {
