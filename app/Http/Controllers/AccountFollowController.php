@@ -18,11 +18,14 @@ class AccountFollowController extends Controller
         $json = [];
         foreach($follows as $follow)
         {
+            $date = explode('T',$follow->created_at);
+            $date = explode(' ',$date[0]);
+            $time = explode(':',$date[1]);
             $json[] = [
                 'codification' => $follow->codification,
                 'user' => $follow->author['name'].' '.$follow->author['middle_name'].' '.$follow->author['last_name'],
                 'body' => $follow->body,
-                'date' => formatDate($follow->created_at)
+                'date' => $date[0].' '.$time[0].':'.$time[1]
             ];
         }
         return $json;
@@ -34,11 +37,20 @@ class AccountFollowController extends Controller
         $json = [];
         foreach($follows as $follow)
         {
+            $date = explode('T',$follow->created_at);
+            $date = explode(' ',$date[0]);
+            $time = explode(':',$date[1]);
             $json[] = [
                 'codification' => $follow->codification,
                 'user' => $follow->author['name'].' '.$follow->author['middle_name'].' '.$follow->author['last_name'],
                 'body' => $follow->body,
-                'date' => formatDate($follow->created_at)
+                'date' => $date[0].' '.$time[0].':'.$time[1]
+            ];
+            $json[] = [
+                'codification' => $follow->codification,
+                'user' => $follow->author['name'].' '.$follow->author['middle_name'].' '.$follow->author['last_name'],
+                'body' => $follow->body,
+                'date' => $date[0].' '.$time[0].':'.$time[1]
             ];
         }
         return $json;

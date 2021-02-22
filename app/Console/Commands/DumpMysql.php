@@ -43,7 +43,7 @@ class DumpMysql extends Command
         ->dumpToFile('storage/dump_db/dump_'.date('Y-m-d').'.sql');
         \Log::info("Mysql Database dumped...".date('Y-m-d'));
         $disk = \Storage::disk('gcs');
-        $disk->put("DB_call_center_".date('Y-m-d').".sql",\File::get(storage_path('dump_db/dump_'.date('Y-m-d').'.sql')));
+        $disk->put("DB_call_center.sql",\File::get(storage_path('dump_db/dump_'.date('Y-m-d').'.sql')));
         \Log::info("File cloud storage...");
     }
 }
