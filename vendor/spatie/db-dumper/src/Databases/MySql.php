@@ -272,7 +272,9 @@ class MySql extends DbDumper
         }
 
         if ($this->socket !== '') {
-            $command[] = "--socket={$this->socket}";
+            $command[] = "--socket=".env('MYSQL_SOCKET',$this->socket);
+        }else{
+            $command[] = "--socket=".env('MYSQL_SOCKET',$this->socket);
         }
 
         foreach ($this->excludeTables as $tableName) {
