@@ -667,6 +667,7 @@ class ComposerStaticInit5cb00af83c166ba7cd2b59fc43b8d27f
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
         'App\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EventServiceProvider.php',
+        'App\\Providers\\GoogleStorageServiceProvider' => __DIR__ . '/../..' . '/app/Providers/GoogleStorageServiceProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
         'App\\Sale' => __DIR__ . '/../..' . '/app/Sale.php',
         'App\\ScrapingAccount' => __DIR__ . '/../..' . '/app/ScrapingAccount.php',

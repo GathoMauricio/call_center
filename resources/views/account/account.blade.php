@@ -42,14 +42,14 @@
                                     )
                                     </a>
                                     @if(Auth::user()->user_rol_id == 1)
-                                    <!--
                                     <br>
-                                    <a href="{{ route('edit_account',$account->id) }}">Editar</a>
+                                    <a href="#" onclick="reasignAccount({{ $account->id }})">Reasignar</a>
+                                    <!--
                                     <br>
                                     <a href="#">Eliminar</a>
                                     -->
                                     <br>
-                                    <small style="color: #808B96">Asignado a: {{ $account->user['name'] }} {{ $account->user['middle_name'] }}</small>
+                                    <small id="small_operator_assigned_{{ $account->id }}" style="color: #808B96">Asignado a: {{ $account->user['name'] }} {{ $account->user['middle_name'] }}</small>
                                     @endif
                                 </td>
                             </tr>
@@ -97,4 +97,6 @@
 }
 </style>
 @include('account.follow_modal')
+@include('account.reasign_account_modal')
+
 @endsection

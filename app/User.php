@@ -20,6 +20,7 @@ class User extends Authenticatable
     protected $fillable = [
         'id',
         'user_rol_id',
+        'status',
         'name',
         'middle_name',
         'last_name',
@@ -31,6 +32,13 @@ class User extends Authenticatable
         'created_at',
         'updated_at'
     ];
+    protected static function boot()
+	{
+		parent::boot();
+        static::creating(function ($query) {
+            $query->status = 'active';
+		});
+    }
     public function rol()
     {
         return $this->belongsTo(

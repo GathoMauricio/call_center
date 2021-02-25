@@ -61,6 +61,8 @@ Route::get('account','AccountController@index')->name('account');
 Route::get('upload_csv','AccountController@uploadCsv')->name('upload_csv');
 Route::post('store_csv','AccountController@storeCsv')->name('store_csv');
 Route::put('update_credentials','AccountController@updateCredentials')->name('update_credentials');
+Route::get('reasign_edit','AccountController@reasignEdit')->name('reasign_edit');
+Route::put('reasign_update','AccountController@reasignUpdate')->name('reasign_update');
 
 Route::get('index_account_follow','AccountFollowController@indexAjax')->name('index_account_follow');
 Route::post('store_account_follow','AccountFollowController@store')->name('store_account_follow');

@@ -1,5 +1,19 @@
 require('./bootstrap');
 $(document).ready(function() {
+    $("#reasign_account_form").on('submit', e => {
+        e.preventDefault();
+        $.ajax({
+            'type': $("#reasign_account_form").prop('method'),
+            'url': $("#reasign_account_form").prop('action'),
+            'data': $("#reasign_account_form").serialize(),
+            'success': data => {
+                $("#small_operator_assigned_" + data.assignment_id).text('Asignado a: ' + data.operator);
+                $("#reasign_account_modal").modal('hide');
+                alert(data.message);
+            },
+            error: err => console.log(err)
+        });
+    });
     $("#form_store_account_follow").on('submit', e => {
         e.preventDefault();
         const body = $("#txt_body_account_follow").val();
@@ -142,4 +156,29 @@ window.showTblAssignedRegisters = () => {
     $("#tablesNewRegisters").css('display', 'none');
     $("#tablesRepitedRegisters").css('display', 'none');
     $("#tablesAssignedRegisters").css('display', 'block');
+};
+window.reasignAccount = assignment_id => {
+    const route = $("#txt_reasign_edit_route").val();
+    $.ajax({
+        'type': 'GET',
+        'url': route,
+        'data': {
+            assignment_id: assignment_id
+        },
+        success: data => {
+            let options = ``;
+            $.each(data.operators, (index, operator) => {
+                if (data.actual_user_id == operator.id) {
+                    options += `<option value="${ operator.id }" selected>${ operator.name } ${ operator.middle_name } ${ operator.last_name }</option>`;
+                } else {
+                    options += `<option value="${ operator.id }">${ operator.name } ${ operator.middle_name } ${ operator.last_name }</option>`;
+                }
+            });
+            //cbo_reasign_account_user
+            $("#txt_reasign_edit_id").val(data.assignment_id);
+            $("#cbo_reasign_account_user").html(options);
+            $("#reasign_account_modal").modal();
+        },
+        error: err => console.log(err)
+    });
 };

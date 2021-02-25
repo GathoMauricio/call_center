@@ -156,4 +156,25 @@ class AccountController extends Controller
         $credentials->save();
         return redirect()->back()->with('message','Credenciales actualizadas..');
     }
+    public function reasignEdit(Request $request)
+    {
+        $assignment = UserAssignment::findOrFail($request->assignment_id);
+        $operators = User::where('status','active')->where('user_rol_id',2)->get();
+        return [
+            'actual_user_id' => $assignment->user_id,
+            'assignment_id' => $assignment->id,
+            'operators' => $operators
+        ];
+    }
+    public function reasignUpdate(Request $request)
+    {
+        $assignment = UserAssignment::findOrFail($request->id);
+        $assignment->user_id = $request->user_id;
+        $assignment->save();
+        return [
+            'assignment_id' => $assignment->id,
+            'operator' => $assignment->user['name'].' '.$assignment->user['middle_name'].' '.$assignment->user['last_name'],
+            'message' => 'Cuenta reasignada.'
+        ];
+    }
 }
