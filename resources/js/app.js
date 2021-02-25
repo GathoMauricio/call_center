@@ -99,3 +99,47 @@ window.deleteUser = user_id => {
             $("meta[name=csrf-token]").prop('content');
     }
 };
+window.exportTableToExcel = (tableID, filename = '') => {
+    let downloadLink;
+    let dataType = 'application/vnd.ms-excel';
+    let tableSelect = document.getElementById(tableID);
+    let tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+    filename = filename ? filename + '.xls' : 'excel_data.xls';
+    downloadLink = document.createElement("a");
+    document.body.appendChild(downloadLink);
+    if (navigator.msSaveOrOpenBlob) {
+        let blob = new Blob(['ufeff', tableHTML], {
+            type: dataType
+        });
+        navigator.msSaveOrOpenBlob(blob, filename);
+    } else {
+        downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+        downloadLink.download = filename;
+        downloadLink.click();
+    }
+}
+
+window.showTblTotalRegisters = () => {
+    $("#tablesTotalRegisters").css('display', 'block');
+    $("#tablesNewRegisters").css('display', 'none');
+    $("#tablesRepitedRegisters").css('display', 'none');
+    $("#tablesAssignedRegisters").css('display', 'none');
+};
+window.showTblNewRegisters = () => {
+    $("#tablesTotalRegisters").css('display', 'none');
+    $("#tablesNewRegisters").css('display', 'block');
+    $("#tablesRepitedRegisters").css('display', 'none');
+    $("#tablesAssignedRegisters").css('display', 'none');
+};
+window.showTblRepitedRegisters = () => {
+    $("#tablesTotalRegisters").css('display', 'none');
+    $("#tablesNewRegisters").css('display', 'none');
+    $("#tablesRepitedRegisters").css('display', 'block');
+    $("#tablesAssignedRegisters").css('display', 'none');
+};
+window.showTblAssignedRegisters = () => {
+    $("#tablesTotalRegisters").css('display', 'none');
+    $("#tablesNewRegisters").css('display', 'none');
+    $("#tablesRepitedRegisters").css('display', 'none');
+    $("#tablesAssignedRegisters").css('display', 'block');
+};

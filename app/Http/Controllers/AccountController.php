@@ -42,6 +42,11 @@ class AccountController extends Controller
         $counterAssigned = 0;
         $counterErrors = 0;
 
+        $totalRegisters = [];
+        $newRegisters = [];
+        $repitedRegisters = [];
+        $assignedRegisters = [];
+
         $counterUser = 0;
         $credentials = ScrapingCredential::first();
         $crawler = $client->request('GET', 'http://proveedoreco.infonavit.org.mx/proveedoresEcoWeb/');
@@ -58,38 +63,42 @@ class AccountController extends Controller
                 {
                     
                     //Insert new account
-                    $newAcoount = Account::create([
+                    $newAccount = Account::create([
                         'phone' => $accounts[$i][0], 
                         'name' => $accounts[$i][1], 
                         'account' => $accounts[$i][2], 
                         'amount' => $accounts[$i][3], 
                         'location' => $accounts[$i][4], 
                     ]);
+                    
                     $counterNews++;
                     //scraping account
                     try{
-                        if($this->scrapAndAssignAccount($client ,$crawler,$newAcoount->account))
+                        if($this->scrapAndAssignAccount($client ,$crawler,$newAccount->account))
                         {
                             //Assign account to user
                             $users = User::where('user_rol_id', 2)->get();
                             //echo $users[$counterUser]."<br>";
                             UserAssignment::create([
                                 'user_id' => $users[$counterUser]->id,
-                                'account_id' => $newAcoount->id
+                                'account_id' => $newAccount->id
                             ]);
+                            $assignedRegisters[] = Account::where('account',$newAccount->account)->first();
                             $counterAssigned++;
                             $counterUser++;
                             if($counterUser >= count(User::where('user_rol_id', 2)->get())) $counterUser = 0;
                         }
-                        
-                        $counterTotal++;
+                        $newRegisters [] = Account::where('account',$newAccount->account)->first(); 
                     }catch(Exception $e){
                         $counterErrors++;
                     }
 
                 }else{
+                    $repitedRegisters[] = Account::where('account',$accounts[$i][2])->first();
                     $counterRepited++;
                 }
+                $counterTotal++;
+                $totalRegisters[] = Account::where('account',$accounts[$i][2])->first();
             }
         }
         return view('account.upload_result',[
@@ -97,7 +106,12 @@ class AccountController extends Controller
             'counterNews' => $counterNews,
             'counterRepited' => $counterRepited,
             'counterAssigned' => $counterAssigned,
-            'counterErrors' => $counterErrors
+            'counterErrors' => $counterErrors,
+
+            'totalRegisters' => $totalRegisters,
+            'newRegisters' => $newRegisters,
+            'repitedRegisters' => $repitedRegisters,
+            'assignedRegisters' => $assignedRegisters
         ]);
     }
 
@@ -106,7 +120,7 @@ class AccountController extends Controller
         $message = $crawler->filter('.system_title')->first();
         //if scrap fail and revived a message recursive the function to pass the craler logged again
         if(count($message) > 0){
-            scrapAndAssignAccount($client ,$crawler, $account);
+            $this->scrapAndAssignAccount($client ,$crawler, $account);
         }
 
         $crawler = $client->submit($form, [
