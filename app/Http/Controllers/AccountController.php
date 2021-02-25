@@ -27,7 +27,9 @@ class AccountController extends Controller
     }
     public function uploadCsv()
     {
-        return view('account.upload_csv');
+        
+        $credentials = ScrapingCredential::first();
+        return view('account.upload_csv',['credentials' => $credentials]);
     }
     public function storeCsv(Request $request, Client $client)
     {
@@ -131,5 +133,13 @@ class AccountController extends Controller
             $account->save();
             return true;
         }
+    }
+    public function updateCredentials(Request $request)
+    {
+        $credentials = ScrapingCredential::first();
+        $credentials->user = $request->user;
+        $credentials->password = $request->password;
+        $credentials->save();
+        return redirect()->back()->with('message','Credenciales actualizadas..');
     }
 }

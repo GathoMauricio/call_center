@@ -28,5 +28,38 @@
             </div>
         </div>
     </div>
+
+    <br/><br/>
+    <form action="{{ route('update_credentials') }}" method="POST">
+        @csrf
+        @method('PUT')
+        <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="" style="font-weight:bold">
+                                Usuario
+                            </label>
+                            <input type="text" name="user" value="{{ $credentials->user }}" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="" style="font-weight:bold">
+                                Contraseña
+                            </label>
+                            <input type="text" name="password"  value="{{ $credentials->password }}" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <br>
+                            <input type="submit" value="Actualizar credenciales"  class="btn btn-warning" style="float:right">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
 @endsection
