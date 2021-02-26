@@ -61,7 +61,7 @@ class AccountController extends Controller
         $crawler = $client->request('GET', 'http://proveedoreco.infonavit.org.mx/proveedoresEcoWeb/');
         $form = $crawler->filter("form")->form();
         $crawler = $client->submit($form, ['usuario' => $credentials->user, 'password' => $credentials->password]);
-
+        $assignaments = [];
         for( $i = 1 ; $i <= sizeof($accounts) ; $i++)
         {
             if(!empty($accounts[$i][2]) && strlen($accounts[$i][2]) >= 10)
@@ -70,8 +70,6 @@ class AccountController extends Controller
                 
                 if(empty($account))
                 {
-                    
-                    //Insert new account
                     $newAccount = Account::create([
                         'phone' => $accounts[$i][0], 
                         'name' => $accounts[$i][1], 
@@ -81,19 +79,17 @@ class AccountController extends Controller
                     ]);
                     
                     $counterNews++;
-                    //scraping account
+                    
                     try{
                         if($this->scrapAndAssignAccount($client ,$crawler,$newAccount->account))
                         {
-                            $users = User::where('user_rol_id', 2)->where('status','active')->get();
-                            UserAssignment::create([
-                                'user_id' => $users[$counterUser]->id,
-                                'account_id' => $newAccount->id
-                            ]);
-                            $assignedRegisters[] = Account::where('account',$newAccount->account)->first();
-                            $counterAssigned++;
-                            $counterUser++;
-                            if($counterUser >= count(User::where('user_rol_id', 2)->where('status','active')->get())) $counterUser = 0;
+                            $auxAccount = Account::where('account',$newAccount->account)->first();
+                            $auxAccount->amount = str_replace(['$',',',' '],'',$auxAccount->amount);
+                            $auxAccount->save();
+                            if(floatval($auxAccount->amount) >= 5000)
+                            {
+                                $assignaments[] = Account::where('account',$newAccount->account)->first();
+                            }
                         }
                         $newRegisters [] = Account::where('account',$newAccount->account)->first(); 
                     }catch(Exception $e){
@@ -107,6 +103,22 @@ class AccountController extends Controller
                 $counterTotal++;
                 $totalRegisters[] = Account::where('account',$accounts[$i][2])->first();
             }
+        }
+        $items = collect($assignaments)->sortBy('amount')->reverse()->toArray();
+        $users = User::where('user_rol_id', 2)->where('status','active')->get();
+        foreach($items as $item)
+        {
+            UserAssignment::create([
+                'user_id' => $users[$counterUser]->id,
+                'account_id' => $item['id']
+            ]);
+            $auxAccount = Account::where('account',$item['account'])->first();
+            $auxAccount->amount = '$'.number_format($auxAccount->amount);
+            $auxAccount->save();
+            $assignedRegisters[] = $auxAccount;
+            $counterAssigned++;
+            $counterUser++;
+            if($counterUser >= count(User::where('user_rol_id', 2)->where('status','active')->get())) $counterUser = 0;
         }
         return view('account.upload_result',[
             'counterTotal' => $counterTotal,
