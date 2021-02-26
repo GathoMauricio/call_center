@@ -25,6 +25,15 @@ class AccountController extends Controller
         }
         return view('account.account',[ 'assignments' => $assignments]);
     }
+    public function archivedIndex(){
+        if(\Auth::user()->user_rol_id == 1)
+        {
+            $assignments = UserAssignment::where('status','archived')->paginate(15);
+        }else{
+            $assignments = UserAssignment::where('status','archived')->where('user_id',\Auth::user()->id)->paginate(15);
+        }
+        return view('account.archived_account',[ 'assignments' => $assignments]);
+    }
     public function uploadCsv()
     {
         

@@ -10,8 +10,8 @@
                     <br>
                     <a href="{{ route('sales') }}" class="float-right">Ventas</a>
                     <br>
-                    <a href="{{ route('archived_account') }}" class="float-right">Cuentas archivadas</a>
-                    <h3>Cuentas</h3>
+                    <a href="{{ route('account') }}" class="float-right">Cuentas activas</a>
+                    <h3>Cuentas archivadas</h3>
                     <span class="float-right">{{ $assignments->links() }}</span>
                 </div>
                 <div class="card-body">
@@ -44,8 +44,8 @@
                                     )
                                     </a>
                                     <br/>
-                                    <a href="#" onclick="archiveAccount({{ $account->id }});">
-                                        Archivar
+                                    <a href="#" onclick="activeAccount({{ $account->id }});">
+                                        Reactivar
                                     </a>
                                     @if(Auth::user()->user_rol_id == 1)
                                     <br>
@@ -107,5 +107,5 @@
 </style>
 @include('account.follow_modal')
 @include('account.reasign_account_modal')
-<input type="hidden" id="txt_archive_account_route" value="{{ route('archive_account') }}" />
+<input type="hidden" id="txt_active_account_route" value="{{ route('active_account') }}" />
 @endsection
