@@ -14,6 +14,24 @@
                         @csrf
                         @method('PUT')
                         <div class="container">
+                        <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="name" class="font-weight-bold">
+                                            Estatus
+                                        </label>
+                                        <select name="status" onchange="archiveUser(this.value)" class="form-control">
+                                        @if($user->status == 'active')
+                                            <option value="active" selected>Activo</option>
+                                            <option value="archived">Archivado</option>
+                                        @else
+                                            <option value="active">Activo</option>
+                                            <option value="archived" selected>Archivado</option>
+                                        @endif
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
@@ -114,9 +132,88 @@
                             </div>
                         </div>
                     </form>
+
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Cuenta</th>
+                                <th>Nombre</th>
+                                <th>Teléfono</th>
+                                <th>Monto</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($assignments as $account)
+                            <tr>
+                                <td>{{ onlyDate($account->created_at) }}</td>
+                                <td>{{ $account->account->account }}</td>
+                                <td>{{ $account->account->name }}</td>
+                                <td>{{ $account->account->phone }}</td>
+                                <td>{{ $account->account->amount }}</td>
+                                <td>
+                                    <a href="#" onclick="openAccountFollows({{ $account->account->id }});">
+                                    Seguimientos 
+                                    (
+                                        <span id="span_count_follows_{{ $account->account->id }}">
+                                        {{ count(App\AccountFollow::where('account_id',$account->account->id)->orderBy('created_at','ASC')->get()) }}
+                                        </span>
+                                    )
+                                    </a>
+                                    @if(Auth::user()->user_rol_id == 1)
+                                    <br>
+                                    <a href="#" onclick="reasignAccount({{ $account->id }})">Reasignar</a>
+                                    <!--
+                                    <br>
+                                    <a href="#">Eliminar</a>
+                                    -->
+                                    <br>
+                                    <small id="small_operator_assigned_{{ $account->id }}" style="color: #808B96">Asignado a: {{ $account->user['name'] }} {{ $account->user['middle_name'] }}</small>
+                                    @endif
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+
                 </div>
             </div>
         </div>
     </div>
 </div>
+<style>
+.comment-box-modal{
+    background:url({{ asset('img/bg.jpg')}});
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    overflow-y:scroll;
+}
+.comment-box-modal::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px $prymary_sys;
+    border-radius: 10px;
+    background-color: #F5F5F5;
+}
+
+.comment-box-modal::-webkit-scrollbar {
+    width: 12px;
+    background-color: #F5F5F5;
+}
+
+.comment-box-modal::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+    background-color: #F5F5F5;
+}
+.comment-item{
+    width: 100%;
+    background-color: white;
+    border-radius: 5px;
+    padding:10px;
+    opacity: 0.9;
+}
+</style>
+@include('account.follow_modal')
+@include('account.reasign_account_modal')
 @endsection

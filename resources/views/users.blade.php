@@ -15,6 +15,7 @@
                         <thead>
                             <tr>
                                 <th>Rol</th>
+                                <th>Estatus</th>
                                 <th>Nombre</th>
                                 <th>A. Paterno</th>
                                 <th>A. Materno</th>
@@ -29,6 +30,13 @@
                             @foreach($users as $user)
                             <tr>
                                 <td>{{ $user->rol['name'] }}</td>
+                                <td>
+                                    @if($user->status == 'active')
+                                    <label class="font-weight-bold" style="color:#58D68D;">Activo</label>
+                                    @else
+                                    <label class="font-weight-bold" style="color:#FFC300;">Archivado</label>
+                                    @endif
+                                </td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->middle_name }}</td>
                                 <td>{{ $user->last_name }}</td>
@@ -38,7 +46,7 @@
                                 <td>
                                     <a href="{{ route('edit_user',$user->id) }}">Editar</a>
                                     <br>
-                                    <a href="#" onclick="deleteUser({{ $user->id }});">Eliminar</a>
+                                    <a href="#" style="color:red" onclick="deleteUser({{ $user->id }});">Eliminar</a>
                                 </td>
                                 @endif
                             </tr>

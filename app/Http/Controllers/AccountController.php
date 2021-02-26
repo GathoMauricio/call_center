@@ -76,9 +76,7 @@ class AccountController extends Controller
                     try{
                         if($this->scrapAndAssignAccount($client ,$crawler,$newAccount->account))
                         {
-                            //Assign account to user
-                            $users = User::where('user_rol_id', 2)->get();
-                            //echo $users[$counterUser]."<br>";
+                            $users = User::where('user_rol_id', 2)->where('status','active')->get();
                             UserAssignment::create([
                                 'user_id' => $users[$counterUser]->id,
                                 'account_id' => $newAccount->id
@@ -86,7 +84,7 @@ class AccountController extends Controller
                             $assignedRegisters[] = Account::where('account',$newAccount->account)->first();
                             $counterAssigned++;
                             $counterUser++;
-                            if($counterUser >= count(User::where('user_rol_id', 2)->get())) $counterUser = 0;
+                            if($counterUser >= count(User::where('user_rol_id', 2)->where('status','active')->get())) $counterUser = 0;
                         }
                         $newRegisters [] = Account::where('account',$newAccount->account)->first(); 
                     }catch(Exception $e){

@@ -106,11 +106,16 @@ window.deleteSale = sale_id => {
     }
 };
 window.deleteUser = user_id => {
-    if (confirm("Eliminar registro")) {
+    if (confirm("ALTO: Si elimina por completo al usuario se eliminarán las cuentas asignadas a este también, le recomendamos editar al usuario para reasignar las cuentas a otros operadores y solo desactivar el acceso al usuario.\n¿Realmente desea eliminar el registro por completo?")) {
         window.location = $("#txt_delete_user_route").val() +
             '/' + user_id +
             '/?_method=DELETE&_token=' +
             $("meta[name=csrf-token]").prop('content');
+    }
+};
+window.archiveUser = status => {
+    if (status == 'archived') {
+        alert("TIP: Antes de archivar a un usuario le recomendamos reasignar las cuentas que crea convenientes de lo contrario las cuentas restantes se rapartirán entre los demás operadores.");
     }
 };
 window.exportTableToExcel = (tableID, filename = '') => {
