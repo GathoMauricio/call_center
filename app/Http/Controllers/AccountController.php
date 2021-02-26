@@ -19,9 +19,9 @@ class AccountController extends Controller
     public function index(){
         if(\Auth::user()->user_rol_id == 1)
         {
-            $assignments = UserAssignment::paginate(15);
+            $assignments = UserAssignment::where('status','active')->paginate(15);
         }else{
-            $assignments = UserAssignment::where('user_id',\Auth::user()->id)->paginate(15);
+            $assignments = UserAssignment::where('status','active')->where('user_id',\Auth::user()->id)->paginate(15);
         }
         return view('account.account',[ 'assignments' => $assignments]);
     }
@@ -174,5 +174,19 @@ class AccountController extends Controller
             'operator' => $assignment->user['name'].' '.$assignment->user['middle_name'].' '.$assignment->user['last_name'],
             'message' => 'Cuenta reasignada.'
         ];
+    }
+    public function archiveAccount(Request $request)
+    {
+        $assignment = UserAssignment::findOrFail($request->id);
+        $assignment->status = 'archived';
+        $assignment->save();
+        return redirect()->back()->with('message','Cuenta archivada');
+    }
+    public function activeAccount(Request $request)
+    {
+        $assignment = UserAssignment::findOrFail($request->id);
+        $assignment->status = 'active';
+        $assignment->save();
+        return redirect()->back()->with('message','Cuenta activa');
     }
 }

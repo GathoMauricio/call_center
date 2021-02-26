@@ -41,6 +41,10 @@
                                         </span>
                                     )
                                     </a>
+                                    <br/>
+                                    <a href="#" onclick="archiveAccount({{ $account->id }});">
+                                        Archivar
+                                    </a>
                                     @if(Auth::user()->user_rol_id == 1)
                                     <br>
                                     <a href="#" onclick="reasignAccount({{ $account->id }})">Reasignar</a>
@@ -54,6 +58,9 @@
                                 </td>
                             </tr>
                             @endforeach
+                            @if(count($assignments) <= 0)
+                            <tr><td colspan="6" class="font-weight-bold text-center">No ha elementos para mostrar</td></tr>
+                            @endif
                         </tbody>
                     </table>
                 </div>
@@ -98,5 +105,5 @@
 </style>
 @include('account.follow_modal')
 @include('account.reasign_account_modal')
-
+<input type="hidden" id="txt_archive_account_route" value="{{ route('archive_account') }}" />
 @endsection

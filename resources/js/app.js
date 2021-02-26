@@ -187,3 +187,15 @@ window.reasignAccount = assignment_id => {
         error: err => console.log(err)
     });
 };
+window.archiveAccount = id => {
+    if (confirm("Al archivar la cuenta desaparecerá de esta lista.\n¿Enviar a la lista de cuentas archivadas?")) {
+        const route = $("#txt_archive_account_route").val();
+        window.location = route + '?id=' + id;
+    }
+};
+window.activeAccount = id => {
+    if (confirm("Al activar la cuenta desaparecerá de esta lista.\n¿Enviar a la lista de cuentas activas?")) {
+        const route = $("#txt_active_account_route").val();
+        window.location = route + '?id=' + id;
+    }
+};
