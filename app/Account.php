@@ -11,6 +11,7 @@ class Account extends Model
 	public $timestamps = true;
     protected $fillable = [
         'id',
+        'status',
         'phone',
         'name',
         'account',
@@ -19,4 +20,11 @@ class Account extends Model
         'created_at',
         'update_at',
     ];
+    protected static function boot()
+	{
+		parent::boot();
+        static::creating(function ($query) {
+            $query->status = 'active';
+		});
+    }
 }

@@ -10,13 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('test',function(){
-    //dump_db/dump_2021-02-19.sql
-    //return storage_path('dump_db/dump_2021-02-19.sql');
-    //$disk = \Storage::disk('gcs');
-    //$disk->put('My_Test.txt',"This is my first test");
-})->name('test');
-
 Route::get('/', function () {
     return view('welcome');
 });

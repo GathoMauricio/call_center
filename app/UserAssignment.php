@@ -11,11 +11,19 @@ class UserAssignment extends Model
 	public $timestamps = true;
     protected $fillable = [
         'id',
+        'status',
         'user_id',
         'account_id',
         'created_at',
         'updated_at'
     ];
+    protected static function boot()
+	{
+		parent::boot();
+        static::creating(function ($query) {
+            $query->status = 'active';
+		});
+    }
     public function user()
     {
         return $this->belongsTo(
