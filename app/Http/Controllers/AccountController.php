@@ -71,7 +71,7 @@ class AccountController extends Controller
                 if(empty($account))
                 {
                     $newAccount = Account::create([
-                        'phone' => $accounts[$i][0], 
+                        'phone' => $accounts[$i][5].' '.$accounts[$i][0], 
                         'name' => $accounts[$i][1], 
                         'account' => $accounts[$i][2], 
                         'amount' => $accounts[$i][3], 
