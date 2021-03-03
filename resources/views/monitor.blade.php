@@ -77,7 +77,7 @@ $users = App\User::where('user_rol_id',2)->orderBy('name')->get();
     names.push('{{ $user->name }} {{ $user->middle_name }}');
     colors.push('{{ $user->color }}');
     @php
-    $sales = App\Sale::where('author_id', $user->id)->get();
+    $sales = App\Sale::where('author_id', $user->id)->where('date',$goal->date)->get();
     $totalSales = 0;
     foreach($sales as $sale)
     {
