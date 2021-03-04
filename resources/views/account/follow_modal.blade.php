@@ -32,8 +32,10 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-12">
-                                <select name="codification" class="form-control">
-                                    <option value="N/A">N/A</option>
+                                <select name="codification" class="form-control" required>
+                                    <option value>--Seleccione una opcion--</option>
+                                    <option value="NUMERO EQUIVOCADO">NUMERO EQUIVOCADO</option>
+                                    <option value="NUMERO EQUIVOCADO">CATALOGO OBLIGATORIO</option>
                                     <option value="BUZÓN">BUZÓN</option>
                                     <option value="ENVIO DE CATÁLOGO">ENVIO DE CATÁLOGO</option>
                                     <option value="ETIQUETA ROJA">ETIQUETA ROJA</option>
