@@ -62,3 +62,9 @@ Route::get('active_account','AccountController@activeAccount')->name('active_acc
 
 Route::get('index_account_follow','AccountFollowController@indexAjax')->name('index_account_follow');
 Route::post('store_account_follow','AccountFollowController@store')->name('store_account_follow');
+
+Route::get('follow_options','FollowOptionController@index')->name('follow_options');
+Route::get('follow_option_create','FollowOptionController@create')->name('follow_option_create');
+Route::get('follow_option_edit/{id}','FollowOptionController@edit')->name('follow_option_edit');
+Route::post('follow_option_store','FollowOptionController@store')->name('follow_option_store');
+Route::put('follow_option_update/{id}','FollowOptionController@update')->name('follow_option_update');

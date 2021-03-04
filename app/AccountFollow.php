@@ -13,7 +13,7 @@ class AccountFollow extends Model
         'id',
         'author_id',
         'account_id',
-        'codification',
+        'follow_option_id',
         'body',
         'created_at',
         'updated_at'
@@ -40,6 +40,15 @@ class AccountFollow extends Model
         return $this->belongsTo(
             'App\Account',
             'account_id',
+            'id'
+        )
+            ->withDefault();
+    }
+    public function option()
+    {
+        return $this->belongsTo(
+            'App\FollowOption',
+            'follow_option_id',
             'id'
         )
             ->withDefault();

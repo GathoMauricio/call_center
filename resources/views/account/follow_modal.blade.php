@@ -32,21 +32,12 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-12">
-                                <select name="codification" class="form-control" required>
+                                <select name="follow_option_id" class="form-control" required>
                                     <option value>--Seleccione una opcion--</option>
-                                    <option value="NUMERO EQUIVOCADO">NUMERO EQUIVOCADO</option>
-                                    <option value="NUMERO EQUIVOCADO">CATALOGO OBLIGATORIO</option>
-                                    <option value="BUZÓN">BUZÓN</option>
-                                    <option value="ENVIO DE CATÁLOGO">ENVIO DE CATÁLOGO</option>
-                                    <option value="ETIQUETA ROJA">ETIQUETA ROJA</option>
-                                    <option value="FUERA DE SERVICIO">FUERA DE SERVICIO</option>
-                                    <option value="ILOCALIZABLE">ILOCALIZABLE</option>
-                                    <option value="MARCAR DESPUÉS">MARCAR DESPUÉS</option>
-                                    <option value="NO CONTESTA">NO CONTESTA</option>
-                                    <option value="NO EXISTE">NO EXISTE</option>
-                                    <option value="NO LE INTERESA">NO LE INTERESA</option>
-                                    <option value="RECADO CON TERCERO">RECADO CON TERCERO</option>
-                                    <option value="SOLICITUD DE CRÉDITO DE PAQUETE">SOLICITUD DE CRÉDITO DE PAQUETE</option>
+                                    @php $options = \App\FollowOption::orderBy('option','ASC')->get(); @endphp
+                                    @foreach($options as $option)
+                                    <option value="{{ $option->id }}">{{ $option->option }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="col-md-12">

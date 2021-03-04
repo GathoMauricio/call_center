@@ -73,6 +73,7 @@
                                 @if(Auth::user()->user_rol_id ==1)
                                 <a class="dropdown-item" href="{{ route('users') }}">Usuarios</a>
                                 <a class="dropdown-item" href="{{ route('upload_csv') }}">Subir CSV</a>
+                                <a class="dropdown-item" href="{{ route('follow_options') }}">Codificaciones</a>
                                 @endif
                                 <!--<a class="dropdown-item" href="{{ route('configuration') }}">Configuración</a>-->
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
