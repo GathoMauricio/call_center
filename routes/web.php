@@ -51,6 +51,7 @@ Route::get('edit_account/{id}','ScrapingAccountController@edit')->name('edit_acc
 Route::put('update_account/{id}','ScrapingAccountController@update')->name('update_account');
 
 Route::get('account','AccountController@index')->name('account');
+Route::get('account_by_codification/{id?}','AccountController@indexByCodification')->name('account_by_codification');
 Route::get('archived_account','AccountController@archivedIndex')->name('archived_account');
 Route::get('upload_csv','AccountController@uploadCsv')->name('upload_csv');
 Route::post('store_csv','AccountController@storeCsv')->name('store_csv');

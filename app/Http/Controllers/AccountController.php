@@ -9,6 +9,7 @@ use App\User;
 use App\UserAssignment;
 use Goutte\Client;
 use App\ScrapingCredential;
+use App\FollowOption;
 
 class AccountController extends Controller
 {
@@ -23,7 +24,41 @@ class AccountController extends Controller
         }else{
             $assignments = UserAssignment::where('status','active')->where('user_id',\Auth::user()->id)->paginate(15);
         }
-        return view('account.account',[ 'assignments' => $assignments]);
+        $options = FollowOption::orderBy('option','ASC')->get();
+        return view('account.account',[ 'assignments' => $assignments, 'options' => $options]);
+    }
+    public function indexByCodification($id)
+    {
+        if(\Auth::user()->user_rol_id == 1)
+        {
+            $assignments = UserAssignment::where('status','active')->get();
+            $aux = [];
+            foreach($assignments as $assignament)
+            {
+                if(!empty($assignament->account['follow_option_id']) && $assignament->account['follow_option_id'] == $id)
+                {
+                    $aux[] = $assignament;
+                }
+            }
+            $assignments =$aux;
+        }else{
+            $assignments = UserAssignment::where('status','active')->where('follow_option_id',$id)->where('user_id',\Auth::user()->id)->get();
+            $aux = [];
+            foreach($assignments as $assignament)
+            {
+                if(!empty($assignament->account['follow_option_id']) && $assignament->account['follow_option_id'] == $id)
+                {
+                    $aux[] = $assignament;
+                }
+            }
+            $assignments =$aux;
+        }
+        $options = FollowOption::orderBy('option','ASC')->get();
+        return view('account.account_by_codification',[ 
+            'option_id' => $id,
+            'assignments' => $assignments, 
+            'options' => $options
+            ]);
     }
     public function archivedIndex(){
         if(\Auth::user()->user_rol_id == 1)

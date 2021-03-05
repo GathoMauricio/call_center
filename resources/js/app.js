@@ -200,3 +200,10 @@ window.activeAccount = id => {
         window.location = route + '?id=' + id;
     }
 };
+window.indexByCodification = id => {
+    if (id.length > 0) {
+        window.location = $("#txt_account_by_codification_route").val() + '/' + id;
+    } else {
+        window.location = $("#txt_account_route").val();
+    }
+};

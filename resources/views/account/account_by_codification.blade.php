@@ -12,7 +12,6 @@
                     <br>
                     <a href="{{ route('archived_account') }}" class="float-right">Cuentas archivadas</a>
                     <h3>Cuentas</h3>
-                    <span class="float-right">{{ $assignments->links() }}</span>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped">
@@ -22,7 +21,11 @@
                                     <select onchange="indexByCodification(this.value)" class="form-control">
                                         <option value>Mostrar todo</option>
                                         @foreach($options as $option)
-                                        <option value="{{ $option->id }}">{{ $option->option }}</option>
+                                            @if($option->id == $option_id)
+                                            <option value="{{ $option->id }}" selected>{{ $option->option }}</option>
+                                            @else
+                                            <option value="{{ $option->id }}">{{ $option->option }}</option>
+                                            @endif
                                         @endforeach
                                     </select>
                                 </th>
@@ -83,9 +86,6 @@
                             @endif
                         </tbody>
                     </table>
-                </div>
-                <div class="card-footer">
-                    <span class="float-right">{{ $assignments->links() }}</span>
                 </div>
             </div>
         </div>
