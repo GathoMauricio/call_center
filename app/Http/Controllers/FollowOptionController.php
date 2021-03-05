@@ -78,6 +78,7 @@ class FollowOptionController extends Controller
     {
         $option = FollowOption::findOrFail($id);
         $option->option = $request->option;
+        $option->color = $request->color;
         $option->save();
         return redirect()->route('follow_options')->with(['class' => 'success','message' => 'Registro actualizado']);
     }

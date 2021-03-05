@@ -24,6 +24,7 @@ class AccountFollowController extends Controller
             $time = explode(':',$date[1]);
             $json[] = [
                 'codification' => $follow->option['option'],
+                'codification_color' => $follow->option['color'],
                 'user' => $follow->author['name'].' '.$follow->author['middle_name'].' '.$follow->author['last_name'],
                 'body' => $follow->body,
                 'date' => $date[0].' '.$time[0].':'.$time[1]
@@ -46,6 +47,7 @@ class AccountFollowController extends Controller
             $time = explode(':',$date[1]);
             $json[] = [
                 'codification' => $follow->option['option'],
+                'codification_color' => $follow->option['color'],
                 'user' => $follow->author['name'].' '.$follow->author['middle_name'].' '.$follow->author['last_name'],
                 'body' => $follow->body,
                 'date' => $date[0].' '.$time[0].':'.$time[1]
@@ -53,7 +55,8 @@ class AccountFollowController extends Controller
         }
         return [
             'data' => $json,
-            'codification' => $account->option->option
+            'codification' => $account->option->option,
+            'codification_color' => $account->option->color
         ];
     }
 }

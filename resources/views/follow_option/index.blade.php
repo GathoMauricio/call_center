@@ -14,6 +14,7 @@
                         <thead>
                             <tr>
                                 <th>Codificación</th>
+                                <th>Color</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -21,6 +22,7 @@
                             @foreach ($options as $option)
                             <tr>
                                 <td>{{ $option->option }}</td>
+                                <td><div style="width:100%;height:20px;background-color:{{ $option->color }}"></div></td>
                                 <td>
                                     <a href="{{ route('follow_option_edit', $option->id) }}">Editar</a>
                                 </td>

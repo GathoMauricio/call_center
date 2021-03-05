@@ -34,7 +34,7 @@ $(document).ready(function() {
                                 ${item.user}
                             </label>
                             <br>
-                            <small class="font-weight-bold" style="color: #5499C7">${item.codification}</small>
+                            <small class="font-weight-bold" style="color: ${ item.codification_color }">${item.codification}</small>
                             <br>
                                 ${item.body}
                             <br>
@@ -52,7 +52,7 @@ $(document).ready(function() {
                     $("#txt_body_account_follow").val('');
                     const id = $("#txt_account_follow_store").val();
                     $("#span_count_follows_" + id).text(counter);
-                    $("#td_codification_" + id).text(data.codification);
+                    $("#td_codification_" + id).html('<b style="color:' + data.codification_color + '" >' + data.codification + '</b>');
                 },
                 error: err => console.log(err)
             });
@@ -76,7 +76,7 @@ window.openAccountFollows = account_id => {
                         ${item.user}
                     </label>
                     <br>
-                    <small class="font-weight-bold" style="color: #5499C7">${item.codification}</small>
+                    <small class="font-weight-bold" style="color: ${ item.codification_color }">${item.codification}</small>
                     <br>
                         ${item.body}
                     <br>

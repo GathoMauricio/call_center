@@ -21,6 +21,16 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="amount" class="font-weight-bold">
+                                        Color
+                                    </label>
+                                    <input name="color" type="color" value="{{ $option->color }}" class="form-control" required/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
                                <input type="submit" class="btn btn-primary float-right" value="Actualizar"/>
                             </div>
                         </div>

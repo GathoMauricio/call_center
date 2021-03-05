@@ -37,7 +37,7 @@
                                 <td>{{ $account->account->amount }}</td>
                                 <td id="td_codification_{{ $account->account->id }}">
                                 @if(!empty($account->account->option['option']))
-                                {{ $account->account->option['option'] }}
+                                <b style="color:{{ $account->account->option['color'] }}">{{ $account->account->option['option'] }}</b>
                                 @else
                                 No definida
                                 @endif

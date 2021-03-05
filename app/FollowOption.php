@@ -12,6 +12,7 @@ class FollowOption extends Model
     protected $fillable = [
         'id',
         'option',
+        'color',
         'created_at',
         'updated_at'
     ];

@@ -14,7 +14,20 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
+                                    <label for="option" class="font-weight-bold">
+                                        Codificación
+                                    </label>
                                     <input type="text" name="option" class="form-control" required/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="amount" class="font-weight-bold">
+                                        Color
+                                    </label>
+                                    <input name="color" type="color"  class="form-control" required/>
                                 </div>
                             </div>
                         </div>
