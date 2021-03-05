@@ -11,6 +11,7 @@ class Account extends Model
 	public $timestamps = true;
     protected $fillable = [
         'id',
+        'follow_option_id',
         'status',
         'phone',
         'name',
@@ -26,5 +27,14 @@ class Account extends Model
         static::creating(function ($query) {
             $query->status = 'active';
 		});
+    }
+    public function option()
+    {
+        return $this->belongsTo(
+            'App\FollowOption',
+            'follow_option_id',
+            'id'
+        )
+            ->withDefault();
     }
 }

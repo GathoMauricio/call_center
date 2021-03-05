@@ -23,6 +23,7 @@
                                 <th>Nombre</th>
                                 <th>Teléfono</th>
                                 <th>Monto</th>
+                                <th>Codificación</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -34,6 +35,13 @@
                                 <td>{{ $account->account->name }}</td>
                                 <td>{{ $account->account->phone }}</td>
                                 <td>{{ $account->account->amount }}</td>
+                                <td id="td_codification_{{ $account->account->id }}">
+                                @if(!empty($account->account->option['option']))
+                                {{ $account->account->option['option'] }}
+                                @else
+                                No definida
+                                @endif
+                                </td>
                                 <td>
                                     <a href="#" onclick="openAccountFollows({{ $account->account->id }});">
                                     Seguimientos 

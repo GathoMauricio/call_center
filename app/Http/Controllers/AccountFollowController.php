@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\AccountFollow;
+use App\Account;
 
 class AccountFollowController extends Controller
 {
@@ -33,6 +34,9 @@ class AccountFollowController extends Controller
     public function store(Request $request)
     {
         $follow = AccountFollow::create($request->all());
+        $account = Account::findOrFail($request->account_id);
+        $account->follow_option_id = $request->follow_option_id;
+        $account->save();
         $follows = AccountFollow::where('account_id',$request->account_id)->orderBy('created_at','ASC')->get();
         $json = [];
         foreach($follows as $follow)
@@ -47,6 +51,9 @@ class AccountFollowController extends Controller
                 'date' => $date[0].' '.$time[0].':'.$time[1]
             ];
         }
-        return $json;
+        return [
+            'data' => $json,
+            'codification' => $account->option->option
+        ];
     }
 }

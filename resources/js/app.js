@@ -26,7 +26,7 @@ $(document).ready(function() {
                     $("#followBox").html('');
                     let html = ``;
                     let counter = 0;
-                    $.each(data, (index, item) => {
+                    $.each(data.data, (index, item) => {
                         counter++;
                         html += `
                         <div class="comment-item">
@@ -52,6 +52,7 @@ $(document).ready(function() {
                     $("#txt_body_account_follow").val('');
                     const id = $("#txt_account_follow_store").val();
                     $("#span_count_follows_" + id).text(counter);
+                    $("#td_codification_" + id).text(data.codification);
                 },
                 error: err => console.log(err)
             });
