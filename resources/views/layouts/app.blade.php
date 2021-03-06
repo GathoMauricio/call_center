@@ -74,6 +74,7 @@
                                 <a class="dropdown-item" href="{{ route('users') }}">Usuarios</a>
                                 <a class="dropdown-item" href="{{ route('upload_csv') }}">Subir CSV</a>
                                 <a class="dropdown-item" href="{{ route('follow_options') }}">Codificaciones</a>
+                                <a class="dropdown-item" href="{{ route('details') }}" target="_blank">Detalle BD</a>
                                 @endif
                                 <!--<a class="dropdown-item" href="{{ route('configuration') }}">Configuración</a>-->
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
