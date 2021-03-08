@@ -42,7 +42,7 @@ class AccountController extends Controller
             }
             $assignments =$aux;
         }else{
-            $assignments = UserAssignment::where('status','active')->where('follow_option_id',$id)->where('user_id',\Auth::user()->id)->get();
+            $assignments = UserAssignment::where('status','active')->where('user_id',\Auth::user()->id)->get();
             $aux = [];
             foreach($assignments as $assignament)
             {
