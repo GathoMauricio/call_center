@@ -121,7 +121,7 @@ class AccountController extends Controller
                             $auxAccount = Account::where('account',$newAccount->account)->first();
                             $auxAccount->amount = str_replace(['$',',',' '],'',$auxAccount->amount);
                             $auxAccount->save();
-                            if(floatval($auxAccount->amount) >= 5000)
+                            if(floatval($auxAccount->amount) >= 800)
                             {
                                 $assignaments[] = Account::where('account',$newAccount->account)->first();
                             }
