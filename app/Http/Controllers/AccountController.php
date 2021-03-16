@@ -175,13 +175,15 @@ class AccountController extends Controller
         $form = $crawler->filter("form")->form();
         $crawler = $client->submit($form, ['usuario' => $credentials->user, 'password' => $credentials->password]);
 
-        $accounts = Account::limit(10)->get();
+        $accounts = Account::all();
+        $counter = 1;
         foreach($accounts as $account)
         {
             $message = $this->scrapMessages($client, $crawler, $account->account);
             $account->message = $message;
             $account->save();
-            echo "Cuenta: ".$account->account." : ".$message." <br/>";
+            echo $counter." - Cuenta: ".$account->account." : ".$message." <br/>";
+            $counter++;
         }
     }
     public function scrapMessages(Client $client ,$crawler, $account){
