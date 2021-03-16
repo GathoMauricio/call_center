@@ -18,6 +18,7 @@ class Account extends Model
         'account',
         'amount',
         'location',
+        'message',
         'created_at',
         'update_at',
     ];
