@@ -71,4 +71,3 @@ Route::post('follow_option_store','FollowOptionController@store')->name('follow_
 Route::put('follow_option_update/{id}','FollowOptionController@update')->name('follow_option_update');
 
 Route::get('details','DetailsController@index')->name('details');
-Route::get('helper','AccountController@getMessages')->name('helper');
