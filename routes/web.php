@@ -71,37 +71,4 @@ Route::post('follow_option_store','FollowOptionController@store')->name('follow_
 Route::put('follow_option_update/{id}','FollowOptionController@update')->name('follow_option_update');
 
 Route::get('details','DetailsController@index')->name('details');
-Route::get('helper',function(){
-    $cuentas = App\Account::get();
-    $users = App\User::where('user_rol_id', 2)->where('status','active')->get();
-    $counterUser = 0;
-    $num = count($users);
-    $total = 0;
-    foreach($cuentas as $cuenta)
-    {
-        $monto = str_replace(['$',',',' '],'',$cuenta->amount);
-        if(strlen($monto > 0) && floatval($monto) >= 800)
-        {
-            if(floatval($monto) < 5000 && floatval($monto) >= 800)
-            {
-                $asignamiento = App\UserAssignment::where('account_id',$cuenta->id)->first();
-                
-                if(empty($asignamiento))
-                {
-                    App\UserAssignment::create([
-                    'user_id' => $users[$counterUser]->id,
-                    'account_id' => $cuenta['id']
-                    ]);
-                    $counterUser++;
-                    if($counterUser >= $num) $counterUser = 0;
-                    $total++;
-
-                    $cuenta->amount = '$'.number_format($monto);
-                    $cuenta->save();
-                }
-            }
-        }
-        
-    }
-    return "Total: ".$total;
-})->name('helper');
+Route::get('helper','AccountController@getMessages')->name('helper');
