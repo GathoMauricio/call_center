@@ -41,7 +41,7 @@ class ReportController extends Controller
         $total = ($stickersCount + $lowAmount + $processable);
 
         $pdf = \PDF::loadView('db_report_pdf',['date' => $date, 'total' => $total]);
-        return $pdf->stream('Cotizacion.pdf');
+        return $pdf->stream('Resultado saldos '.$date.'.pdf');
         }
 
         
