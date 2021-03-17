@@ -32,7 +32,7 @@
     </style>
 </head>
 <body>
-<h3><center>Resultado de actualización de saldos:<br/>{{ $date }}<BR/>{{ $total }}</center></h3>
+<h3><center>Resultado de la actualización de saldos:<br/>{{ $date }}<BR/>{{ $total }}</center></h3>
 <main><br/><br/><br>
 <br/><br/><br>
 <table style="width:100%;">
