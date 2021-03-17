@@ -168,43 +168,7 @@ class AccountController extends Controller
             'assignedRegisters' => $assignedRegisters
         ]);
     }
-    public function getMessages(Client $client){
-        set_time_limit(50000);
-        $credentials = ScrapingCredential::first();
-        $crawler = $client->request('GET', 'http://proveedoreco.infonavit.org.mx/proveedoresEcoWeb/');
-        $form = $crawler->filter("form")->form();
-        $crawler = $client->submit($form, ['usuario' => $credentials->user, 'password' => $credentials->password]);
-
-        $accounts = Account::all();
-        $counter = 1;
-        foreach($accounts as $account)
-        {
-            $message = $this->scrapMessages($client, $crawler, $account->account);
-            $account->message = $message;
-            $account->save();
-            echo $counter." - Cuenta: ".$account->account." : ".$message." <br/>";
-            $counter++;
-        }
-    }
-    public function scrapMessages(Client $client ,$crawler, $account){
-        $form = $crawler->filter("form")->form();
-        $message = $crawler->filter('.system_title')->first();
-        //if scrap fail and revived a message recursive the function to pass the craler logged again
-        if(count($message) > 0){
-            $this->scrapMessages($client ,$crawler, $account);
-        }
-
-        $crawler = $client->submit($form, [
-            'numeroCredito' => $account
-        ]);
-
-        $message = $crawler->filter('.system_title')->first();
-        if(count($message) > 0){
-            return $message->text();
-        }else{
-            return '';
-        }
-     }
+    
     public function scrapAndAssignAccount(Client $client ,$crawler, $account){
         $form = $crawler->filter("form")->form();
         $message = $crawler->filter('.system_title')->first();
@@ -281,4 +245,42 @@ class AccountController extends Controller
         $assignment->save();
         return redirect()->back()->with('message','Cuenta activa');
     }
+
+    public function getMessages(Client $client){
+        set_time_limit(50000);
+        $credentials = ScrapingCredential::first();
+        $crawler = $client->request('GET', 'http://proveedoreco.infonavit.org.mx/proveedoresEcoWeb/');
+        $form = $crawler->filter("form")->form();
+        $crawler = $client->submit($form, ['usuario' => $credentials->user, 'password' => $credentials->password]);
+
+        $accounts = Account::all();
+        $counter = 1;
+        foreach($accounts as $account)
+        {
+            $message = $this->scrapMessages($client, $crawler, $account->account);
+            $account->message = $message;
+            $account->save();
+            echo $counter." - Cuenta: ".$account->account." : ".$message." <br/>";
+            $counter++;
+        }
+    }
+    public function scrapMessages(Client $client ,$crawler, $account){
+        $form = $crawler->filter("form")->form();
+        $message = $crawler->filter('.system_title')->first();
+        //if scrap fail and revived a message recursive the function to pass the craler logged again
+        if(count($message) > 0){
+            $this->scrapMessages($client ,$crawler, $account);
+        }
+
+        $crawler = $client->submit($form, [
+            'numeroCredito' => $account
+        ]);
+
+        $message = $crawler->filter('.system_title')->first();
+        if(count($message) > 0){
+            return $message->text();
+        }else{
+            return '';
+        }
+     }
 }

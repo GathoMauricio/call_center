@@ -71,3 +71,38 @@ Route::post('follow_option_store','FollowOptionController@store')->name('follow_
 Route::put('follow_option_update/{id}','FollowOptionController@update')->name('follow_option_update');
 
 Route::get('details','DetailsController@index')->name('details');
+
+Route::get('report','ReportController@index')->name('report');
+Route::get('db_report/{date}','ReportController@dbReport')->name('db_report');
+
+Route::get('helper',function(){
+
+    $msgs = \App\Account::distinct()->get('message');
+    $counter = 0;
+    $lowAmount = 0;
+    $processable = 0;
+    foreach($msgs as $msg) { 
+        if(!empty($msg->message))
+        {
+            echo $msg->message.": ";
+            $counter+=count(\App\Account::where('message',$msg->message)->get());
+            echo $counter."<br/>";
+        }
+    }
+    $accounts = \App\Account::where('message','')->get();
+    foreach($accounts as $account)
+    {
+        $amount = str_replace(['$',',',' '], '', $account->amount);
+        if(floatval($amount < 800))
+        {
+            $lowAmount++;
+        }else{
+            $processable++;
+        }
+    }
+    echo "Saldo menor de $800: ".$lowAmount."<br/>";
+    echo "Procesable: ".$processable."<br/>";
+    echo "Total: ".($counter + $lowAmount + $processable)."<br/>";
+    
+
+})->name('helper');
