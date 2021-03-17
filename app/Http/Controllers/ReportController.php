@@ -17,15 +17,14 @@ class ReportController extends Controller
     public function dbReport($date)
     {
         $msgs = \App\Account::distinct()->where('created_at','LIKE','%'.$date.'%')->get('message');
-        $counter = 0;
+        $stickersCount = 0;
         $lowAmount = 0;
         $processable = 0;
         foreach($msgs as $msg) { 
             if(!empty($msg->message))
             {
-                //echo $msg->message.": ";
-                $counter+=count(\App\Account::where('message',$msg->message)->get());
-                //echo $counter."<br/>";
+                $count=count(\App\Account::where('message',$msg->message)->get());
+                $stickersCount+=$count;
             }
         }
         $accounts = \App\Account::where('message','')->where('created_at','LIKE','%'.$date.'%')->get();
@@ -39,11 +38,9 @@ class ReportController extends Controller
                 $processable++;
             }
         }
-        //echo "Saldo menor de $800: ".$lowAmount."<br/>";
-        //echo "Procesable: ".$processable."<br/>";
-        //echo "Total: ".($counter + $lowAmount + $processable)."<br/>";
+        $total = ($stickersCount + $lowAmount + $processable);
 
-        $pdf = \PDF::loadView('db_report_pdf',[]);
+        $pdf = \PDF::loadView('db_report_pdf',['date' => $date, 'total' => $total]);
         return $pdf->stream('Cotizacion.pdf');
         }
 
