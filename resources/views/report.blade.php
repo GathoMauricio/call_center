@@ -12,8 +12,8 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>Base de datos</th>
-                                <th>Reporte</th>
+                                <th width="50%">Base de datos</th>
+                                <th width="50%">Reporte</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -23,7 +23,9 @@
                                     {{ $date->date_db }}
                                 </td>
                                 <td>
-                                    <a href="{{ route('db_report',$date->date_db) }}" target="_blank" class="btn btn-primary">Generar</a>
+                                    <a href="{{ route('db_report',$date->date_db) }}" target="_blank" class="btn btn-primary">Resultado de saldos</a>
+                                    
+                                    <a href="{{ route('db_report',$date->date_db) }}" target="_blank" class="btn btn-primary">Registros por operador</a>
                                 </td>
                             </tr>
                             @endforeach

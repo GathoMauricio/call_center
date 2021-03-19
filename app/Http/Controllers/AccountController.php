@@ -185,7 +185,7 @@ class AccountController extends Controller
         //if the consult return a message text this record not work
         if(count($message) > 0){
             $account = Account::where('account',$account)->first();
-            $account->message = $message;
+            $account->message = $message->text();
             $account->save();
             return false;
         }else{
