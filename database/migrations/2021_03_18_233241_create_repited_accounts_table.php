@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddMessageToAccounts extends Migration
+class CreateRepitedAccountsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class AddMessageToAccounts extends Migration
      */
     public function up()
     {
-        Schema::table('accounts', function (Blueprint $table) {
-            $table->string('message')->after('location')->nullable();
+        Schema::create('repited_accounts', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->bigInteger('account_id')->nullable();
+            $table->timestamps();
         });
     }
-
+    
     /**
      * Reverse the migrations.
      *
@@ -25,8 +27,6 @@ class AddMessageToAccounts extends Migration
      */
     public function down()
     {
-        Schema::table('accounts', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('repited_accounts');
     }
 }

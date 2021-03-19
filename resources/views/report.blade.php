@@ -24,8 +24,9 @@
                                 </td>
                                 <td>
                                     <a href="{{ route('db_report',$date->date_db) }}" target="_blank" class="btn btn-primary">Resultado de saldos</a>
-                                    
+                                    <!--
                                     <a href="{{ route('db_report',$date->date_db) }}" target="_blank" class="btn btn-primary">Registros por operador</a>
+                                    -->
                                 </td>
                             </tr>
                             @endforeach

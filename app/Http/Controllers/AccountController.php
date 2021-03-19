@@ -10,6 +10,7 @@ use App\UserAssignment;
 use Goutte\Client;
 use App\ScrapingCredential;
 use App\FollowOption;
+use App\RepitedAccount;
 
 class AccountController extends Controller
 {
@@ -132,7 +133,9 @@ class AccountController extends Controller
                     }
 
                 }else{
-                    $repitedRegisters[] = Account::where('account',$accounts[$i][2])->first();
+                    $repitedAccount = Account::where('account',$accounts[$i][2])->first();
+                    $repitedRegisters[] = $repitedAccount;
+                    RepitedAccount::create([ 'account_id' => $repitedAccount->id]);
                     $counterRepited++;
                 }
                 $counterTotal++;
@@ -184,11 +187,14 @@ class AccountController extends Controller
         $message = $crawler->filter('.system_title')->first();
         //if the consult return a message text this record not work
         if(count($message) > 0){
-            $account = Account::where('account',$account)->first();
-            $account->message = $message->text();
-            $account->save();
+            $accountM = Account::where('account',$account)->first();
+            $accountM->message = $message->text();
+            $accountM->save();
             return false;
         }else{
+            $accountM = Account::where('account',$account)->first();
+            $accountM->message = '';
+            $accountM->save();
             //if not message on this step obtain information
             $section = explode('Datos del Acreditado',$crawler->filter('form[name=proveedoresForm]')->first()->text());
             $aux = explode('Nombre Acreditado: ',$section[1]);
