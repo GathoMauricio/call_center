@@ -73,4 +73,4 @@ Route::put('follow_option_update/{id}','FollowOptionController@update')->name('f
 Route::get('details','DetailsController@index')->name('details');
 
 Route::get('report','ReportController@index')->name('report');
-Route::get('db_report/{date}','ReportController@dbReport')->name('db_report');
+Route::get('db_report/{date?}/{location?}','ReportController@dbReport')->name('db_report');

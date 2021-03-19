@@ -32,13 +32,13 @@
     </style>
 </head>
 <body>
-<h3><center>Resultado de la actualización de saldos:<br/>{{ $date }}</center></h3>
+<h3><center>Resultado de la actualización de saldos:<br/>{{ $date }}<br/>{{ $location }}</center></h3>
 <main><br/><br/><br>
 <br/><br/><br>
 <table style="width:100%;">
 <tr><th colspan="3" style="text-align:center;background-color:#D5D8DC;">Etiquetas</th></tr>
 @php
-$msgs = \App\Account::distinct()->whereDate('created_at',$date)->get('message');
+$msgs = \App\Account::distinct()->where('location',$location)->whereDate('created_at',$date)->get('message');
 $processable = 0;
 $no_processable = 0;
 $lowAmount = 0;
@@ -47,14 +47,14 @@ foreach($msgs as $msg) {
     {
         echo "<tr style='background-color:#D5D8DC;'>";
         echo "<td>".$msg->message."</td>";
-        $count=count(\App\Account::where('message',$msg->message)->get());
+        $count=count(\App\Account::where('location',$location)->where('message',$msg->message)->whereDate('created_at',$date)->get());
         $no_processable+=$count;
         echo "<td>".$count."</td>";
         echo "<td>".number_format(($count * 100) / $total,1)."%</td>";
         echo "</tr>";
     }
 }
-$accounts = \App\Account::where('message','')->whereDate('created_at',$date)->get();
+$accounts = \App\Account::where('location',$location)->where('message','')->whereDate('created_at',$date)->get();
 foreach($accounts as $account)
 {
     $amount = str_replace(['$',',',' '], '', $account->amount);

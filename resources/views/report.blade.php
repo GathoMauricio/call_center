@@ -13,7 +13,7 @@
                         <thead>
                             <tr>
                                 <th width="50%">Base de datos</th>
-                                <th width="50%">Reporte</th>
+                                <th width="50%">Reporte de zona</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -23,7 +23,12 @@
                                     {{ $date->date_db }}
                                 </td>
                                 <td>
-                                    <a href="{{ route('db_report',$date->date_db) }}" target="_blank" class="btn btn-primary">Resultado de saldos</a>
+                                    @php 
+                                        $zones = \App\Account::distinct()->whereDate('created_at',$date->date_db)->orderBy('location')->get('location');
+                                    @endphp
+                                    @foreach($zones as $zone)
+                                    <a href="{{ route('db_report',[$date->date_db,$zone->location]) }}" target="_blank" > [{{ $zone->location }}]</a>
+                                    @endforeach
                                     <!--
                                     <a href="{{ route('db_report',$date->date_db) }}" target="_blank" class="btn btn-primary">Registros por operador</a>
                                     -->
