@@ -22,9 +22,9 @@ class AccountController extends Controller
     public function index(){
         if(\Auth::user()->user_rol_id == 1)
         {
-            $assignments = UserAssignment::where('status','active')->paginate(15);
+            $assignments = UserAssignment::where('status','active')->orderBy('created_at','DESC')->paginate(15);
         }else{
-            $assignments = UserAssignment::where('status','active')->where('user_id',\Auth::user()->id)->paginate(15);
+            $assignments = UserAssignment::where('status','active')->where('user_id',\Auth::user()->id)->orderBy('created_at','DESC')->paginate(15);
         }
         $options = FollowOption::orderBy('option','ASC')->get();
         return view('account.account',[ 'assignments' => $assignments, 'options' => $options]);
