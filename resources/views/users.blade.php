@@ -44,6 +44,8 @@
                                 <td><div style="width:100%;height:20px;background-color:{{ $user->color }}"></div></td>
                                 @if(Auth::user()->user_rol_id ==1)
                                 <td>
+                                    <a href="{{ route('upload_csv_by_operator',$user->id) }}" style="color:green">Agregar BD</a>
+                                    <br>
                                     <a href="{{ route('edit_user',$user->id) }}">Editar</a>
                                     <br>
                                     <a href="#" style="color:red" onclick="deleteUser({{ $user->id }});">Eliminar</a>

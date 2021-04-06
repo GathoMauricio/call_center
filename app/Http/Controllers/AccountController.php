@@ -11,6 +11,7 @@ use Goutte\Client;
 use App\ScrapingCredential;
 use App\FollowOption;
 use App\RepitedAccount;
+use App\AccountFollow;
 
 class AccountController extends Controller
 {
@@ -292,4 +293,111 @@ class AccountController extends Controller
             return '';
         }
      }
+     public function uploadCsvByOperator($id)
+    {
+        
+        $credentials = ScrapingCredential::first();
+        $user = User::findOrFail($id);
+        return view('account.upload_csv_by_operator',['credentials' => $credentials, 'user' => $user]);
+    }
+    public function storeCsvByOperator(Request $request,$id , Client $client)
+    {
+        set_time_limit(50000);
+        $file = $request->file('file');
+        $accounts = readCSV($file,array('delimiter' => ','));
+        $counterTotal = 0;
+        $counterNews = 0;
+        $counterRepited = 0;
+        $counterAssigned = 0;
+        $counterErrors = 0;
+
+        $totalRegisters = [];
+        $newRegisters = [];
+        $repitedRegisters = [];
+        $assignedRegisters = [];
+
+        //$counterUser = 0;
+        $credentials = ScrapingCredential::first();
+        $crawler = $client->request('GET', 'http://proveedoreco.infonavit.org.mx/proveedoresEcoWeb/');
+        $form = $crawler->filter("form")->form();
+        $crawler = $client->submit($form, ['usuario' => $credentials->user, 'password' => $credentials->password]);
+        $assignaments = [];
+        for( $i = 1 ; $i <= sizeof($accounts) ; $i++)
+        {
+            if(!empty($accounts[$i][2]) && strlen($accounts[$i][2]) >= 10)
+            {
+                $account = Account::where('account',$accounts[$i][2])->first();
+                
+                if(empty($account))
+                {
+                    $newAccount = Account::create([
+                        'phone' => $accounts[$i][0], 
+                        'name' => $accounts[$i][1], 
+                        'account' => $accounts[$i][2], 
+                        'amount' => $accounts[$i][3], 
+                        'location' => $accounts[$i][4], 
+                    ]);
+                    AccountFollow::create([
+                        'author_id' => $id,
+                        'account_id' => $newAccount->id,
+                        'body' => $accounts[$i][5]
+                    ]);
+                    
+                    $counterNews++;
+                    
+                    try{
+                        if($this->scrapAndAssignAccount($client ,$crawler,$newAccount->account))
+                        {
+                            $auxAccount = Account::where('account',$newAccount->account)->first();
+                            $auxAccount->amount = str_replace(['$',',',' '],'',$auxAccount->amount);
+                            $auxAccount->save();
+                            if(floatval($auxAccount->amount) >= 800)
+                            {
+                                $assignaments[] = Account::where('account',$newAccount->account)->first();
+                            }
+                        }
+                        $newRegisters [] = Account::where('account',$newAccount->account)->first(); 
+                    }catch(Exception $e){
+                        $counterErrors++;
+                    }
+
+                }else{
+                    $repitedAccount = Account::where('account',$accounts[$i][2])->first();
+                    $repitedRegisters[] = $repitedAccount;
+                    RepitedAccount::create([ 'account_id' => $repitedAccount->id]);
+                    $counterRepited++;
+                }
+                $counterTotal++;
+                $totalRegisters[] = Account::where('account',$accounts[$i][2])->first();
+            }
+        }
+        $items = collect($assignaments)->sortBy('amount')->reverse()->toArray();
+        //$users = User::where('user_rol_id', 2)->where('status','active')->get();
+        foreach($items as $item)
+        {
+            UserAssignment::create([
+                'user_id' => $id,
+                'account_id' => $item['id']
+            ]);
+            $auxAccount = Account::where('account',$item['account'])->first();
+            $auxAccount->amount = '$'.number_format($auxAccount->amount);
+            $auxAccount->save();
+            $assignedRegisters[] = $auxAccount;
+            $counterAssigned++;
+            //$counterUser++;
+            //if($counterUser >= count(User::where('user_rol_id', 2)->where('status','active')->get())) $counterUser = 0;
+        }
+        return view('account.upload_result',[
+            'counterTotal' => $counterTotal,
+            'counterNews' => $counterNews,
+            'counterRepited' => $counterRepited,
+            'counterAssigned' => $counterAssigned,
+            'counterErrors' => $counterErrors,
+
+            'totalRegisters' => $totalRegisters,
+            'newRegisters' => $newRegisters,
+            'repitedRegisters' => $repitedRegisters,
+            'assignedRegisters' => $assignedRegisters
+        ]);
+    }
 }

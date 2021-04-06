@@ -74,3 +74,6 @@ Route::get('details','DetailsController@index')->name('details');
 
 Route::get('report','ReportController@index')->name('report');
 Route::get('db_report/{date?}/{location?}','ReportController@dbReport')->name('db_report');
+
+Route::get('upload_csv_by_operator/{id}','AccountController@uploadCsvByOperator')->name('upload_csv_by_operator');
+Route::post('store_csv_by_operator/{id}','AccountController@storeCsvByOperator')->name('store_csv_by_operator');
