@@ -340,7 +340,7 @@ class AccountController extends Controller
                     AccountFollow::create([
                         'author_id' => $id,
                         'account_id' => $newAccount->id,
-                        'body' => $accounts[$i][5]
+                        'body' => " ".$accounts[$i][5]
                     ]);
                     
                     $counterNews++;
