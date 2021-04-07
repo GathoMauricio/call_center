@@ -1,5 +1,5 @@
 <?php
-
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -77,3 +77,28 @@ Route::get('db_report/{date?}/{location?}','ReportController@dbReport')->name('d
 
 Route::get('upload_csv_by_operator/{id}','AccountController@uploadCsvByOperator')->name('upload_csv_by_operator');
 Route::post('store_csv_by_operator/{id}','AccountController@storeCsvByOperator')->name('store_csv_by_operator');
+
+Route::get('helper',function(){
+    return view('helper');
+})->name('helper');
+Route::post('helper_post',function(Request $request){
+    $file = $request->file('file');
+    $accounts = readCSV($file,array('delimiter' => ','));
+    for( $i = 1 ; $i < sizeof($accounts) ; $i++)
+    {
+        //echo $i." > ".$accounts[$i][2]."<br/>";
+        $cuenta = \App\Account::where('account',$accounts[$i][2])->first();
+        if($cuenta)
+        {
+            $asig = \App\UserAssignment::where('account_id',$cuenta->id)->first();
+            if($asig)
+            {
+                $asig->user_id = 9;
+                $asig->save();
+                echo "Assig: ".$i." > ".$asig->account['account'].' : '.$asig->user['name'].' '.$asig->user['middle_name'].' '.$asig->user['last_name'].'<br>';
+            }
+        }
+        
+        if($i == 384) break;
+    }
+})->name('helper_post');
