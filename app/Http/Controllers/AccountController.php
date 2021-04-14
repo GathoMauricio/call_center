@@ -431,4 +431,15 @@ class AccountController extends Controller
         }
         return $assign;
     }
+    public function edit($id)
+    {
+        $account = Account::findOrFail($id);
+        return view('account.edit',['account' => $account]);
+    }
+    public function update(Request $request, $id)
+    {
+        $account = Account::findOrFail($id);
+        $account->fill($request->all())->save();
+        return redirect()->back()->with('message','Información actualizada!');
+    }
 }

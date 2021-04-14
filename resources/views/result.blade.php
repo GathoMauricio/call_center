@@ -15,15 +15,29 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
+                                <th>Fecha</th>
                                 <th>Cuenta</th>
                                 <th>Nombre</th>
+                                <th>Teléfono</th>
+                                <th>Monto</th>
+                                <th>Codificación</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
+                                <td>{{ onlyDate($account->created_at) }}</td>
                                 <td>{{ $account->account }}</td>
                                 <td>{{ $account->name }}</td>
+                                <td>{{ $account->phone }}</td>
+                                <td>{{ $account->amount }}</td>
+                                <td id="td_codification_{{ $account->id }}">
+                                @if(!empty($account->option['option']))
+                                <b style="color:{{ $account->option['color'] }}">{{ $account->option['option'] }}</b>
+                                @else
+                                No definida
+                                @endif
+                                </td>
                                 <td>
                                     <a href="#" onclick="openAccountFollows({{ $account->id }});">
                                     Seguimientos 
@@ -32,6 +46,10 @@
                                         {{ count(App\AccountFollow::where('account_id',$account->id)->orderBy('created_at','ASC')->get()) }}
                                         </span>
                                     )
+                                    </a>
+                                    <br>
+                                    <a href="{{ route('edit_account',$account->id) }}" target="_blank">
+                                        Editar
                                     </a>
                                 </td>
                             </tr>

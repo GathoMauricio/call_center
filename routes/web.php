@@ -62,6 +62,8 @@ Route::get('archive_account','AccountController@archiveAccount')->name('archive_
 Route::get('active_account','AccountController@activeAccount')->name('active_account');
 Route::get('search_account_autocomplete','AccountController@searchAccountAutocomplete')->name('search_account_autocomplete');
 Route::get('search_account/{account?}','AccountController@searchAccount')->name('search_account');
+Route::get('edit_account/{id}','AccountController@edit')->name('edit_account');
+Route::put('update_account/{id}','AccountController@update')->name('update_account');
 
 Route::get('index_account_follow','AccountFollowController@indexAjax')->name('index_account_follow');
 Route::post('store_account_follow','AccountFollowController@store')->name('store_account_follow');

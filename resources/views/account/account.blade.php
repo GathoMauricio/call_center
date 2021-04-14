@@ -65,6 +65,10 @@
                                     <a href="#" onclick="archiveAccount({{ $account->id }});">
                                         Archivar
                                     </a>
+                                    <br>
+                                    <a href="{{ route('edit_account',$account->id) }}" target="_blank">
+                                        Editar
+                                    </a>
                                     @if(Auth::user()->user_rol_id == 1)
                                     <br>
                                     <a href="#" onclick="reasignAccount({{ $account->id }})">Reasignar</a>
