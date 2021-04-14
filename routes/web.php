@@ -60,6 +60,8 @@ Route::get('reasign_edit','AccountController@reasignEdit')->name('reasign_edit')
 Route::put('reasign_update','AccountController@reasignUpdate')->name('reasign_update');
 Route::get('archive_account','AccountController@archiveAccount')->name('archive_account');
 Route::get('active_account','AccountController@activeAccount')->name('active_account');
+Route::get('search_account_autocomplete','AccountController@searchAccountAutocomplete')->name('search_account_autocomplete');
+Route::get('search_account/{account?}','AccountController@searchAccount')->name('search_account');
 
 Route::get('index_account_follow','AccountFollowController@indexAjax')->name('index_account_follow');
 Route::post('store_account_follow','AccountFollowController@store')->name('store_account_follow');

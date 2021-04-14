@@ -13,12 +13,14 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+    <script src="{{ asset('js/jquery-ui.min.js') }}" defer></script>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/jquery-ui.min.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -48,6 +50,21 @@
                             <a class="nav-link" href="{{ route('login') }}">Iniciar sesión</a>
                         </li>
                         @else
+                        <li class="nav-item">
+                             <div class="form-inline">
+                                <div class="input-group">
+                                    <input type="hidden" id="txt_search_account_route_ajax" value="{{ route('search_account_autocomplete')}}"/>
+                                    <input type="hidden" id="txt_search_account_route" value="{{ route('search_account')}}"/>
+                                    <input id="txt_seach_account" type="text" class="form-control" placeholder="Buscar..." aria-label="Username" aria-describedby="basic-addon1">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" id="basic-addon1">
+                                            <span class="icon-search font-weight-bold">Q</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('monitor') }}" target="_blank">Monitor</a>
                         </li>

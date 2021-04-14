@@ -1,5 +1,25 @@
 require('./bootstrap');
 $(document).ready(function() {
+    $("#txt_seach_account").autocomplete({
+        source: (request, response) => {
+            const route = $("#txt_search_account_route_ajax").val();
+            $.ajax({
+                url: route,
+                dataType: 'json',
+                data: { q: request.term },
+                success: data => {
+                    console.log(data);
+                    response(data);
+                },
+                error: err => console.log(err)
+            });
+        },
+        minLength: 1,
+        select: (event, ui) => {
+            console.log(JSON.stringify(ui));
+            window.location = $("#txt_search_account_route").val() + '/' + ui.item.value;
+        }
+    });
     $("#reasign_account_form").on('submit', e => {
         e.preventDefault();
         $.ajax({

@@ -400,4 +400,35 @@ class AccountController extends Controller
             'assignedRegisters' => $assignedRegisters
         ]);
     }
+    public function searchAccountAutocomplete(Request $request)
+    {
+         $accounts = Account::where(function($query) use ($request){
+                $query->where('account','like','%'.$request->q.'%')
+                ->orWHere('name','like','%'.$request->q.'%');
+            })->limit(20)->get();
+        $json = [];
+        foreach($accounts as $account){
+            $assign = UserAssignment::where('account_id',$account->id)->first();
+            if(!empty($assign)){
+               $json [] = [
+                        'label' => $assign->account['account'].' '.$assign->account['name'],
+                        'value' => $assign->account['account']
+                    ];
+            }
+        }
+        return $json;
+    }
+    public function searchAccount(Request $request,$account)
+    {
+        $account = Account::where('account',$account)->first();
+        $assign = UserAssignment::where('account_id',$account->id)->first();
+        $options = FollowOption::orderBy('option','ASC')->get();
+        if($assign->user_id == \Auth::user()->id || \Auth::user()->user_rol_id == 1)
+        {
+            return view('result',['account' => $account, 'options' => $options]);
+        }else{
+            return view('not_found');
+        }
+        return $assign;
+    }
 }
