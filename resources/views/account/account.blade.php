@@ -53,6 +53,10 @@
                                 @endif
                                 </td>
                                 <td>
+                                    <a href="#" onclick="newReminder({{ $account->account->id }});">
+                                    Nuevo recordatorio
+                                    </a>
+                                    <br>
                                     <a href="#" onclick="openAccountFollows({{ $account->account->id }});">
                                     Seguimientos 
                                     (
@@ -127,9 +131,11 @@
     opacity: 0.9;
 }
 </style>
+@include('reminders.create')
 @include('account.follow_modal')
 @include('account.reasign_account_modal')
 <input type="hidden" id="txt_archive_account_route" value="{{ route('archive_account') }}" />
 <input type="hidden" id="txt_account_by_codification_route" value="{{ route('account_by_codification') }}" />
 <input type="hidden" id="txt_account_route" value="{{ route('account') }}" />
+<input type="hidden" id="txt_reminder_store_route" value="{{ route('reminder_store') }}" />
 @endsection

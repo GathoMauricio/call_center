@@ -48,6 +48,7 @@ return array(
     'App\\Providers\\EventServiceProvider' => $baseDir . '/app/Providers/EventServiceProvider.php',
     'App\\Providers\\GoogleStorageServiceProvider' => $baseDir . '/app/Providers/GoogleStorageServiceProvider.php',
     'App\\Providers\\RouteServiceProvider' => $baseDir . '/app/Providers/RouteServiceProvider.php',
+    'App\\RepitedAccount' => $baseDir . '/app/RepitedAccount.php',
     'App\\Sale' => $baseDir . '/app/Sale.php',
     'App\\ScrapingAccount' => $baseDir . '/app/ScrapingAccount.php',
     'App\\ScrapingCredential' => $baseDir . '/app/ScrapingCredential.php',

@@ -81,3 +81,6 @@ Route::get('db_report/{date?}/{location?}','ReportController@dbReport')->name('d
 
 Route::get('upload_csv_by_operator/{id}','AccountController@uploadCsvByOperator')->name('upload_csv_by_operator');
 Route::post('store_csv_by_operator/{id}','AccountController@storeCsvByOperator')->name('store_csv_by_operator');
+
+Route::get('reminder_index','ReminderController@index')->name('reminder_index');
+Route::post('reminder_store','ReminderController@store')->name('reminder_store');

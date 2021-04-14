@@ -78,6 +78,22 @@ $(document).ready(function() {
             });
         }
     });
+    $("#form_reminder_create").on('submit', e => {
+        e.preventDefault();
+        const route = $("#txt_reminder_store_route").val();
+        $.ajax({
+            type: "POST",
+            url: route,
+            data: $("#form_reminder_create").serialize(),
+            success: data => {
+                if (data.id > 0) {
+                    $("#reminder_create_modal").modal('hide');
+                    alert("El recordatorio se agregó correctamente!");
+                }
+            },
+            error: err => console.log(err)
+        });
+    });
 });
 
 window.openAccountFollows = account_id => {
@@ -226,4 +242,8 @@ window.indexByCodification = id => {
     } else {
         window.location = $("#txt_account_route").val();
     }
+};
+window.newReminder = account_id => {
+    $("#txt_account_id_reminder_create").val(account_id);
+    $("#reminder_create_modal").modal();
 };
