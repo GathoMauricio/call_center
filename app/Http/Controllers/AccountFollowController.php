@@ -23,6 +23,7 @@ class AccountFollowController extends Controller
             $date = explode(' ',$date[0]);
             $time = explode(':',$date[1]);
             $json[] = [
+                'client' => $follow->account['name'],
                 'codification' => $follow->option['option'],
                 'codification_color' => $follow->option['color'],
                 'user' => $follow->author['name'].' '.$follow->author['middle_name'].' '.$follow->author['last_name'],

@@ -122,17 +122,21 @@ window.openAccountFollows = account_id => {
                     <br>
                 </div><br>
                 `;
+                $("#span_name_account").text(item.client);
             });
             $("#followBox").html(html);
             $("#followBox").animate({ scrollTop: $(document).height() * 10000 },
                 500
             );
+
+
             $("#account_follow_modal").modal();
         },
         error: err => {
             console.log(err);
         }
     });
+    //span_name_account
 }
 window.deleteSale = sale_id => {
     if (confirm("Eliminar registro")) {
