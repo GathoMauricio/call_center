@@ -280,3 +280,17 @@ window.collapseUserReport = () => {
         userReportBool = true;
     }
 };
+let totalUserReportBool = false;
+window.collapseTotalUserReport = () => {
+    if (totalUserReportBool) {
+        $("#span_collapse_total_user_report").removeClass('icon-circle-up');
+        $("#span_collapse_total_user_report").addClass('icon-circle-down');
+        $("#body_total_user_report").css('display', 'none');
+        totalUserReportBool = false;
+    } else {
+        $("#span_collapse_total_user_report").removeClass('icon-circle-down');
+        $("#span_collapse_total_user_report").addClass('icon-circle-up');
+        $("#body_total_user_report").css('display', 'block');
+        totalUserReportBool = true;
+    }
+};

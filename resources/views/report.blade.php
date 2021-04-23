@@ -49,7 +49,7 @@
             <div class="card">
                 <div class="card-header">
                     <span onclick="collapseUserReport();" id="span_collapse_user_report" class="icon-circle-down float-right" style="font-size:22px;cursor:pointer"></span>
-                    <h3>Reportes de usuarios</h3>
+                    <h3>Reporte por usuario</h3>
                 </div>
                 <div class="card-body" id="body_user_report" style="display:none;">
                     <table class="table table-striped" id="index_table">
@@ -82,6 +82,42 @@
                                 </tr>
                             
                             @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <span onclick="collapseTotalUserReport();" id="span_collapse_total_user_report" class="icon-circle-down float-right" style="font-size:22px;cursor:pointer"></span>
+                    <h3>Reporte total de usuarios</h3>
+                </div>
+                <div class="card-body" id="body_total_user_report" style="display:none;">
+                    <table class="table table-striped" id="index_table">
+                        <thead>
+                            <tr>
+                                <th class="font-weight-bold">Desde</th>
+                                <th class="font-weight-bold">Hasta</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <form action="{{ route('total_user_report_result') }}">
+                                    <td>
+                                        <input type="date" name="date1" value="{{ date('Y-m-d') }}" class="form-control" required>
+                                    </td>
+                                    <td>
+                                        <input type="date" name="date2" value="{{ date('Y-m-d') }}" class="form-control" required>
+                                    </td>
+                                    <td>
+                                        <input type="submit" class="btn btn-primary " value="Generar"/>
+                                    </td>
+                                </form>
+                                </tr>
                         </tbody>
                     </table>
                 </div>

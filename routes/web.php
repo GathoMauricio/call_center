@@ -69,6 +69,7 @@ Route::get('details','DetailsController@index')->name('details');
 Route::get('report','ReportController@index')->name('report');
 Route::get('db_report/{date?}/{location?}','ReportController@dbReport')->name('db_report');
 Route::get('user_report_result/{id}','ReportController@userReport')->name('user_report_result');
+Route::get('total_user_report_result','ReportController@totalUserReport')->name('total_user_report_result');
 
 Route::get('upload_csv_by_operator/{id}','AccountController@uploadCsvByOperator')->name('upload_csv_by_operator');
 Route::post('store_csv_by_operator/{id}','AccountController@storeCsvByOperator')->name('store_csv_by_operator');

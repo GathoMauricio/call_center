@@ -88,4 +88,26 @@ class ReportController extends Controller
             'user' => $user
             ]);
     }
+    public function totalUserReport(Request $request)
+    {
+        $users = User::where('user_rol_id',2)->where('status','active')->orderBy('name')->get();
+        $options = FollowOption::orderBy('option')->get();
+        if($request->date1 == $request->date2)
+        {
+            $follows = AccountFollow::
+            whereDate('created_at', $request->date1)
+            ->orderBy('created_at','DESC')
+            ->get();
+        }else{
+            $follows = AccountFollow::
+            whereBetween('created_at', [$request->date1, $request->date2])
+            ->orderBy('created_at','DESC')
+            ->get();
+        }
+        return view('report.total_user_result',[
+            'users' => $users,
+            'follows' => $follows,
+            'options' => $options
+            ]);
+    }
 }
