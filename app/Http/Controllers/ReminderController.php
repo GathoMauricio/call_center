@@ -10,7 +10,12 @@ class ReminderController extends Controller
 {
     public function index()
     {
-        $reminders = Reminder::where('user_id', \Auth::user()->id)->where('date',date('Y-m-d'))->get();
+        if(\Auth::user()->user_rol_id == 1)
+        {
+            $reminders = Reminder::where('date',date('Y-m-d'))->get();
+        }else{
+            $reminders = Reminder::where('user_id', \Auth::user()->id)->where('date',date('Y-m-d'))->get();
+        }
         return view('reminders.index',['reminders' => $reminders]);
     }
 

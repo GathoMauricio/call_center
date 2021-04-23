@@ -1,4 +1,5 @@
 require('./bootstrap');
+require("./data_table");
 $(document).ready(function() {
     $("#txt_seach_account").autocomplete({
         source: (request, response) => {
@@ -250,4 +251,32 @@ window.indexByCodification = id => {
 window.newReminder = account_id => {
     $("#txt_account_id_reminder_create").val(account_id);
     $("#reminder_create_modal").modal();
+};
+let bdReportBool = false;
+window.collapseBdReport = () => {
+    if (bdReportBool) {
+        $("#span_collapse_bd_report").removeClass('icon-circle-up');
+        $("#span_collapse_bd_report").addClass('icon-circle-down');
+        $("#body_bd_report").css('display', 'none');
+        bdReportBool = false;
+    } else {
+        $("#span_collapse_bd_report").removeClass('icon-circle-down');
+        $("#span_collapse_bd_report").addClass('icon-circle-up');
+        $("#body_bd_report").css('display', 'block');
+        bdReportBool = true;
+    }
+};
+let userReportBool = false;
+window.collapseUserReport = () => {
+    if (userReportBool) {
+        $("#span_collapse_user_report").removeClass('icon-circle-up');
+        $("#span_collapse_user_report").addClass('icon-circle-down');
+        $("#body_user_report").css('display', 'none');
+        userReportBool = false;
+    } else {
+        $("#span_collapse_user_report").removeClass('icon-circle-down');
+        $("#span_collapse_user_report").addClass('icon-circle-up');
+        $("#body_user_report").css('display', 'block');
+        userReportBool = true;
+    }
 };

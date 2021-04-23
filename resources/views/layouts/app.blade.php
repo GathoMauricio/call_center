@@ -20,6 +20,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/font.css') }}" rel="stylesheet">
     <link href="{{ asset('css/jquery-ui.min.css') }}" rel="stylesheet">
 </head>
 
@@ -58,7 +59,7 @@
                                     <input id="txt_seach_account" type="text" class="form-control" placeholder="Buscar..." aria-label="Username" aria-describedby="basic-addon1">
                                     <div class="input-group-append">
                                         <span class="input-group-text" id="basic-addon1">
-                                            <span class="icon-search font-weight-bold">Q</span>
+                                            <span class="icon-search font-weight-bold"></span>
                                         </span>
                                     </div>
                                 </div>
